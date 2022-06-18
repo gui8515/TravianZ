@@ -3,11 +3,11 @@
 ## Todo List
 
 ### User
-[] List all User
-[] Show User
-[] Create User
-[] Modify User
-[] Delete User
+- [ ] List all User
+- [ ] Show User
+- [ ] Create User
+- [ ] Modify User
+- [ ] Delete User
 
 
 
