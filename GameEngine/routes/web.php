@@ -16,3 +16,6 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+// Rourtes for the UserController
+$router->get('/users', 'UserController@getAllUsers');
