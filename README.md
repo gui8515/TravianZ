@@ -1,15 +1,50 @@
 # Engine Travian Browser Game
 
-## Todo List
+A ideia deste projeto é atualizar o script clone do TravianZ utilizando os recursos e tecnologias da atualidade. Frontend será criado com Nuxt3 e o backend com Lumen.
+Recriar toda a engine do jogo e criar um layout para mobile.
 
-### User
-- [ ] List all User
-- [ ] Show User
-- [ ] Create User
-- [ ] Modify User
-- [ ] Delete User
+## Por onde começar?
 
+Pelo backend (core da aplicação) usando o Lumen em formato de API e após isso vamos partir para o frontend.
 
+### Coisas a se fazer na engine
+
+- [ ] Models
+  - [ ] User
+  - [ ] Village
+  - [ ] Resources
+
+- [ ] Controllers
+  - [ ] User
+    - [ ] List all
+    - [ ] Show
+    - [ ] Create
+    - [ ] Modify
+    - [ ] Delete
+
+  - [ ] Village
+    - [ ] List all
+    - [ ] Show
+    - [ ] Create
+    - [ ] Modify
+    - [ ] Delete
+
+  - [ ] Resources
+    - [ ] List all
+    - [ ] Show
+    - [ ] Create
+    - [ ] Modify
+    - [ ] Delete
+
+- [ ] Migradions
+  - [ ] User
+  - [ ] Village
+  - [ ] Resources
+  
+- [ ] Factories
+  - [ ] User
+  - [ ] Village
+  - [ ] Resources
 
 ## License
 
