@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -23,12 +23,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'uuid' => $this->faker->uuid,
+            'name' => $this->faker->firstName(),
             'email' => $this->faker->unique()->safeEmail,
-            'password' => $this->faker->password,
+            'password' => Hash::make(12345668),
             'description' => $this->faker->sentence,
             'birthday' => $this->faker->date,
-            'location' => $this->faker->country,
+            'location' => $this->faker->city,
             'id_tribe' => $this->faker->numberBetween(1, 6),
             'id_alliance' => $this->faker->numberBetween(1, 200),
             'is_plus' => $this->faker->boolean,
@@ -36,14 +37,14 @@ class UserFactory extends Factory
             'is_protected' => $this->faker->boolean,
             'is_online' => $this->faker->boolean,
             'is_banned' => $this->faker->boolean,
-            'plus_expires_at' => $this->faker->unixTime( 'now' + $this->faker->numberBetween(1, 7) * 24 * 60 * 60 ),
-            'gold_expires_at' => $this->faker->unixTime( 'now' + $this->faker->numberBetween(1, 30) * 24 * 60 * 60 ),
-            'protect_expires_at' => $this->faker->unixTime( 'now' + $this->faker->numberBetween(1, 7) * 24 * 60 * 60 ),
-            'last_online' => $this->faker->unixTime('now'),
-            'activated_at' => $this->faker->unixTime('now'),
-            'banned_at' => null,
+            'plus_expires_at' => $this->faker->dateTimeBetween('now', '+1 week'),
+            'gold_expires_at' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'protect_expires_at' => $this->faker->dateTimeBetween('now', '+1 day'),
+            'last_online' => $this->faker->dateTimeBetween('-1 day', 'now'),
+            'activated_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
+            'banned_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
             'access_level' => 1,
-            'remember_token' => Str::random(10)
+            'remember_token' => $this->faker->regexify('[A-Za-z0-9]{10}'),
         ];
     }
 }

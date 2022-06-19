@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('description')->nullable();
             $table->date('birthday')->nullable();
-            $table->integer('location')->nullable();
+            $table->string('location')->nullable();
             $table->integer('id_tribe');
             $table->integer('id_alliance')->nullable();
             $table->boolean('is_plus')->default(false);
