@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         //
         User::factory()
             ->count(50)
+            ->hasVillages(2)
             ->create();
     }
 }

@@ -9,37 +9,25 @@ class VillageField extends Model
 {
     use HasFactory;
 
-    /* Associate table with model
-    * @var string
-    */
-
+    // Table associated with the model
     protected $table = 'village_fields';
 
-    /* Define fillable attributes
-    * @var string[]
-    */
+    // The attributes that are mass assignable.
+    protected $fillable = ['*'];
 
-    protected $fillable = [
-        'id_village',
-        'field',
-        'building',
-        'level',
-        'is_resource',
-    ];
+    // The attributes that not mass assignable.
+    protected $guarded = [];
 
-     /* Define hidden attributes
-    * @var string[]
-    */
-    protected $hidden = [
-        // 'id',
-    ];
+    // The attributes excluded from the model's JSON form.
+    protected $hidden = [];
 
-    /* Validation rules for the model
-    * @var array
-    */
-    public static $rules = [
-        // 'uuid' => 'required|uuid|unique:villages',
-    ];
+    // Validation rules for the model
+    public static $rules = [];
+
+    // Relationships
+    public function village()    {
+        return $this->belongsTo(Village::class);
+    }
 
 
 }

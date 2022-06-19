@@ -8,55 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Village extends Model
 {
     use HasFactory;
-    /* Associate table with model
-    * @var string
-    */
 
+    // Table associated with the model
     protected $table = 'villages';
 
-    /* Define fillable attributes
-    * @var string[]
-    */
+    // The attributes that are mass assignable.
+    protected $fillable = ['*'];
 
-    protected $fillable = [
-        // 'uuid',
-        'id_user',
-        'is_capital',
-        'id_village',
-        'population',
-        'loyalty',
-        'culture_points',
-        'max_culture_points',
-        'wood',
-        'max_wood',
-        'stone',
-        'max_stone',
-        'iron',
-        'max_iron',
-        'crop',
-        'max_crop',
-        'wood_prod',
-        'stone_prod',
-        'iron_prod',
-        'crop_prod',
-        'wood_prod_bonus',
-        'stone_prod_bonus',
-        'iron_prod_bonus',
-        'crop_prod_bonus'
-    ];
+    // The attributes that not mass assignable.
+    protected $guarded = [];
 
-    /* Define hidden attributes
-    * @var string[]
-    */
-    protected $hidden = [
-        // 'id',
-    ];
+    // The attributes excluded from the model's JSON form.
+    protected $hidden = [];
 
-    /* Validation rules for the model
-    * @var array
-    */
-    public static $rules = [
-        // 'uuid' => 'required|uuid|unique:villages',
-    ];
+    // Validation rules for the model
+    public static $rules = [];
+
+    // Relationships
+    public function user()    {
+        return $this->belongsTo(User::class);
+    }
+
+    // public function villageFields()    {
+    //     return $this->hasMany(VillageField::class);
+    // }
 
 }

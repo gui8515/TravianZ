@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('village_fields', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('id_village');
+            $table->integer('village_id');
             $table->integer('field');
-            $table->integer('building')->default(0);
+            $table->integer('type');
             $table->integer('level')->default(0);
             $table->boolean('is_resource')->default(false);
+            $table->boolean('is_building')->default(false);
 
             $table->timestamps();
 
             // Relationships
-            $table->foreign('id_village')->references('id')->on('villages');
+            $table->foreign('village_id')->references('id')->on('villages');
         });
     }
 

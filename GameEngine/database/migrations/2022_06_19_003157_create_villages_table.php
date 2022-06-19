@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('villages', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('id_user');
-            $table->integer('id_village')->nullable();
+            $table->integer('user_id');
+            $table->integer('village_id')->nullable();
 
             $table->string('name')->default('Village');
             $table->integer('type')->default(0);
@@ -89,8 +89,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Relationships
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_village')->references('id')->on('villages');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('village_id')->references('id')->on('villages');
 
 
 

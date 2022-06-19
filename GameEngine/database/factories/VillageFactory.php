@@ -29,8 +29,8 @@ class VillageFactory extends Factory
         $user = $this->faker->randomElement($users);
         // $user['id'] = 1;
 
-        $villages = Village::all('id', 'name', 'is_capital', 'id_user')
-            ->where('id_user', '=', $user['id'])
+        $villages = Village::all('id', 'name', 'is_capital', 'user_id')
+            ->where('user_id', '=', $user['id'])
             ->toArray();
 
         $village = $this->faker->randomElement($villages);
@@ -47,10 +47,10 @@ class VillageFactory extends Factory
         // dd($villages, 'village selecter', $village);
 
         return [
-            'id_user' => $user['id'],
+            'user_id' => $user['id'],
             'name' => $user['name']."'s village",
             'is_capital' => $is_capital,
-            'id_village' => $village['id'],
+            'village_id' => $village['id'],
             'population' => $this->faker->numberBetween(1, 1000),
             'loyalty' => $this->faker->numberBetween(70, 100),
             'culture' => $this->faker->numberBetween(1, 500),
