@@ -8,18 +8,12 @@ use Illuminate\Database\Seeder;
 
 class VillageFieldSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    // Run the database seeds.
     public function run()
     {
-        {
-            //
-            VillageField::factory()
-                ->count(1)
-                ->create();
-        }
+
+        VillageField::factory()
+            ->count(1)
+            ->create();
     }
 }

@@ -29,8 +29,8 @@ class Village extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function villageFields()    {
-    //     return $this->hasMany(VillageField::class);
-    // }
+    public function villageFields()    {
+        return $this->hasMany(VillageField::class);
+    }
 
 }

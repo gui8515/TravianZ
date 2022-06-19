@@ -17,10 +17,14 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->integer('village_id');
             $table->integer('field');
-            $table->integer('type');
+            $table->integer('build_type');
             $table->integer('level')->default(0);
             $table->boolean('is_resource')->default(false);
             $table->boolean('is_building')->default(false);
+            $table->boolean('is_upgrading')->default(false);
+            $table->boolean('is_constructed')->default(false);
+            $table->boolean('is_destroyed')->default(false);
+            $table->boolean('is_occupied')->default(false);
 
             $table->timestamps();
 

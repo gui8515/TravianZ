@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\VillageField;
+use App\Models\Village;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class VillageFieldFactory extends Factory
@@ -11,12 +12,20 @@ class VillageFieldFactory extends Factory
 
     public function definition(): array
     {
+        // get the village id
+        $village = Village::factory()->create();
+
     	return [
-            'id_village' => 1,
-            'field' => 1,
-            'building' => 1,
-            'level' => 1,
-            'is_resource' => 1,
+            'village_id' => $village['id'],
+            'field' => $this->faker->numberBetween(1, 40),
+            'build_type' => $this->faker->numberBetween(1, 44),
+            'level' => $this->faker->numberBetween(1, 20),
+            'is_resource' => false,
+            'is_building' => false,
+            'is_upgrading' => false,
+            'is_constructed' => false,
+            'is_destroyed' => false,
+            'is_occupied' => false,
     	];
     }
 }

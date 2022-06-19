@@ -6,16 +6,15 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    // use WithoutModelEvents;
+
+    // Run the database seeds.
     public function run()
     {
         $this->call([
             UserSeeder::class,
+            VillageSeeder::class,
+            VillageFieldSeeder::class,
         ]);
 
     }
