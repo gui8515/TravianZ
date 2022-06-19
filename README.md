@@ -10,12 +10,12 @@ Pelo backend (core da aplicação) usando o Lumen em formato de API e após isso
 ### Coisas a se fazer na engine
 
 - [ ] Models
-  - [ ] User
+  - [x] User
   - [ ] Village
   - [ ] Resources
 
 - [ ] Controllers
-  - [ ] User
+  - [x] User
     - [ ] List all
     - [ ] Show
     - [ ] Create
