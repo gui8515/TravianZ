@@ -14,7 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // Get all users
+        $users = User::all();
+        
     }
 
     /**
@@ -26,6 +28,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**
