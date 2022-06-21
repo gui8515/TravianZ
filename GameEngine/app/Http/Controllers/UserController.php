@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Village;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -15,14 +13,11 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-
-    public function show(User $user)
+    public function show(Request $request, $username)
     {
-        // show user has id or username
-        $user = User::where('id', $user)->orWhere('name', $user)->firstORfail();
+        $user = User::where('username', $username)->first();
         return response()->json($user);
     }
-
 
     public function store(Request $request)
     {

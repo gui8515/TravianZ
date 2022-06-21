@@ -17,29 +17,31 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
 
     protected $table = 'users';
-// Table associated with the model
+    // Table associated with the model
     protected $primaryKey = 'id';
-// Primary key of the table
+    // Primary key of the table
     protected $keyType = 'int';
-// Type of the primary key
+    // Type of the primary key
     public $incrementing = true;
-// Autoincrementing primary key
+    // Autoincrementing primary key
     public $timestamps = true;
-// Timestamps
+    // Timestamps
 
     // Attributes
     protected $attributes = [
         'password' => '1234',
     ];
-// Allowed fields for mass assignment
+    // Allowed fields for mass assignment
     protected $fillable = ['*'];
-// Fields that are not allowed for mass assignment
+
+    // Fields that are not allowed for mass assignment
     protected $guarded = [];
-// The attributes excluded from the model's JSON form.
+
+    // The attributes excluded from the model's JSON form.
     protected $hidden = [
         'password',
     ];
-// Validation rules for the model
+    // Validation rules for the model
     public static $rules = [
         'name' => 'required|string|max:255',
         'username' => 'required|string|max:255|unique:users',

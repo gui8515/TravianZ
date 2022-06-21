@@ -46,7 +46,8 @@ class VillageController extends Controller
      */
     public function show(Village $village)
     {
-        //
+        //  Return the village
+        return response()->json($village);
     }
 
     /**

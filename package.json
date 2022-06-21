@@ -3,6 +3,7 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
+		"reset": "cd GameEngine & php artisan migrate:fresh --seed",
 		"serve": "php -S 0.0.0.0:8000 -t GameEngine",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview"

@@ -21,5 +21,10 @@ $router->get('/', function () use ($router) {
 
 // Rourtes for the UserController
 $router->get('/users', 'UserController@index');
-$router->get('/users/{id}', 'UserController@show');
 $router->get('/users-villages', 'UserController@getUsersWithVillages');
+$router->get('/user/{username}', 'UserController@show');
+
+$router->get('/user/{username}/villages', 'UserController@getVillages');
+$router->get('/user/{username}/village/{villageId}', 'UserController@getVillage');
+
+$router->get('/user/{username}/village/{villageId}/units', 'UserController@getUnits');

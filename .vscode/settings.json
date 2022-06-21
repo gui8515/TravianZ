@@ -37,7 +37,7 @@
 	// PHP
 	// Here you can use your path to php
 	"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php8.1.7\\php.exe",
-	"php.suggest.basic": false,
+	"php.suggest.basic": true,
 	"phpSniffer.run": "onType",
 	"phpSniffer.autoDetect": true,
 	// Here you can use another coding-style
