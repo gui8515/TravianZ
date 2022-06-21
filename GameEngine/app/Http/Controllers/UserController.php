@@ -3,43 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Village;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Get all users
     public function index()
     {
-        // Get all users
         $users = User::all();
-        
+        return response()->json($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    // Get user
     public function show(User $user)
     {
-        //
+        return response()->json($user);
+    }
+
+    /* Show user
+    / @param $id
+    */
+    public function store(Request $request)
+    {        $user = User::create($request->all());
+
+
+
+
+
+
+
+        return response()->json($user);
     }
 
     /**
@@ -63,5 +58,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    // Get all users with their villages
+    public function getUsersWithVillages()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->villages = $user->villages()->get();
+        }
+        return $users;
     }
 }

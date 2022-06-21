@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use app\Http\Controllers\UserController;
 class Village extends Model
 {
     use HasFactory;
@@ -32,5 +32,6 @@ class Village extends Model
     public function villageFields()    {
         return $this->hasMany(VillageField::class);
     }
+
 
 }

@@ -18,4 +18,5 @@ $router->get('/', function () use ($router) {
 });
 
 // Rourtes for the UserController
-$router->get('/users', 'UserController@getAllUsers');
+$router->get('/users', 'UserController@index');
+$router->get('/users-villages', 'UserController@getUsersWithVillages');
