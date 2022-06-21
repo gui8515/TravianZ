@@ -42,4 +42,8 @@
 	"phpSniffer.autoDetect": true,
 	// Here you can use another coding-style
 	"phpSniffer.standard": "PSR12",
+	"phpSniffer.executablesFolder": ".\\GameEngine\\vendor\\bin",
+	"editor.fontFamily": "Fira Code",
+	"editor.fontSize": 12,
+	"editor.fontLigatures": true,
 }
