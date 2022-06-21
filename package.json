@@ -1,14 +1,13 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "serve": "php -S localhost:8000 -t GameEngine",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview"
-
-  },
-  "devDependencies": {
-    "nuxt": "3.0.0-rc.4"
-  }
+	"private": true,
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"serve": "php -S 0.0.0.0:8000 -t GameEngine",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview"
+	},
+	"devDependencies": {
+		"nuxt": "3.0.0-rc.4"
+	}
 }

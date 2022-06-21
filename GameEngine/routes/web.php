@@ -14,7 +14,9 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    $host = request()->getHttpHost();
+    $router->app->version();
+    return $host;
 });
 
 // Rourtes for the UserController

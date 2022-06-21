@@ -1,0 +1,21 @@
+@id = {{$randomInt 1 5}}
+
+GET http://localhost:8000/
+
+### List all users
+GET http://localhost:8000/users/
+
+### Get a user for id
+GET http://localhost:8000/users/{{id}}/
+
+### POST /api/v1/users/
+### { "username": "test", "password": "test" }
+
+POST http://localhost:8000/users
+Content-Type: application/json
+
+	{
+	"name": "John",
+	"email": "",
+	"password": "123456"
+	}

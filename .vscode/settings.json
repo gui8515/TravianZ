@@ -46,4 +46,21 @@
 	"editor.fontFamily": "Fira Code",
 	"editor.fontSize": 12,
 	"editor.fontLigatures": true,
+	"rest-client.environmentVariables": {
+		"$shared": {},
+		"production": {
+			"host": "clickteam.com.br",
+			"port": "80",
+			"protocol": "https",
+		},
+		"dev": {
+			"host": "localhost",
+			"port": "8000",
+			"endpoint": "api/v1",
+			"scheme": "http",
+			"username": "Gui8515",
+			"password": "12345678",
+			"email": "gui8515@gmail.com",
+		}
+	}
 }

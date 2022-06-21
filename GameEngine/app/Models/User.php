@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
@@ -10,40 +11,44 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-	use Authenticatable, Authorizable, HasFactory;
+    use Authenticatable;
+    use Authorizable;
+    use HasFactory;
 
-	protected $table = 'users';     // Table associated with the model
-	protected $primaryKey = 'id';   // Primary key of the table
-	protected $keyType = 'int';     // Type of the primary key
-	public $incrementing = true;    // Autoincrementing primary key
-	public $timestamps = true;      // Timestamps
 
-	// Attributes
-	protected $attributes = [
-		'password' => '1234',
-	];
+    protected $table = 'users';
+// Table associated with the model
+    protected $primaryKey = 'id';
+// Primary key of the table
+    protected $keyType = 'int';
+// Type of the primary key
+    public $incrementing = true;
+// Autoincrementing primary key
+    public $timestamps = true;
+// Timestamps
 
-	// Allowed fields for mass assignment
-	protected $fillable = ['*'];
-
-	// Fields that are not allowed for mass assignment
-	protected $guarded = [];
-
-	// The attributes excluded from the model's JSON form.
-	protected $hidden = [
-		'password',
-	];
-
-	// Validation rules for the model
-							public static $rules = [
-		'name' => 'required|string|max:255',
-		'email' => 'required|string|email|max:255|unique:users',
-		'password' => 'required|string|between:6,32|confirmed',
-	];
-
-	// Relationships
-	public function villages()
-	{
-		return $this->hasMany(Village::class);
-	}
+    // Attributes
+    protected $attributes = [
+        'password' => '1234',
+    ];
+// Allowed fields for mass assignment
+    protected $fillable = ['*'];
+// Fields that are not allowed for mass assignment
+    protected $guarded = [];
+// The attributes excluded from the model's JSON form.
+    protected $hidden = [
+        'password',
+    ];
+// Validation rules for the model
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'username' => 'required|string|max:255|unique:users',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|between:6,32|confirmed',
+    ];
+// Relationships
+    public function villages()
+    {
+        return $this->hasMany(Village::class);
+    }
 }

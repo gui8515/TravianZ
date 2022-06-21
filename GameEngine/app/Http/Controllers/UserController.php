@@ -18,8 +18,9 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        // return response()->json($user);
-        return env('APP_NAME');
+        // show user has id or username
+        $user = User::where('id', $user)->orWhere('name', $user)->firstORfail();
+        return response()->json($user);
     }
 
 
