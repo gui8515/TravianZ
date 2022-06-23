@@ -23,4 +23,6 @@ $router->get('/', function () use ($router) {
 $router->get('/users', 'UserController@index');
 $router->get('/users/villages', 'UserController@getUsersWithVillages');
 $router->get('/users/fields', 'UserController@getUsersWithFields');
+$router->get('/users/units', 'UserController@getUsersWithUnits');
+
 $router->get('/user/{id}', 'UserController@show');

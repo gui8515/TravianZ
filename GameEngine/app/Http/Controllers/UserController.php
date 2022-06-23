@@ -49,7 +49,7 @@ class UserController extends Controller
     // Get all users with villages with fields
     public function getUsersWithFields()
     {
-        $user = User::with('villages', 'villages.Fields')->get();
+        $user = User::with('villages', 'villages.villagesFields')->get();
         return response()->json($user);
     }
 
@@ -70,7 +70,7 @@ class UserController extends Controller
     // Show user with villages with fields
     public function showUserWithFields($id)
     {
-        $user = User::with('villages', 'villages.fields')->find($id);
+        $user = User::with('villages', 'villages.villagesFields')->find($id);
         return response()->json($user);
     }
 

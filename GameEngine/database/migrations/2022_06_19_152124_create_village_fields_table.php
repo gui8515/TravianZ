@@ -1,21 +1,18 @@
 <?php
 
+use App\Models\Village;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    // Run the migrations
     public function up()
     {
         Schema::create('village_fields', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->integer('village_id');
+            $table->id();
+            $table->foreignIdFor(Village::class);
             $table->integer('field');
             $table->integer('build_type');
             $table->integer('level')->default(0);
@@ -29,15 +26,11 @@ return new class extends Migration
             $table->timestamps();
 
             // Relationships
-            $table->foreign('village_id')->references('id')->on('villages');
+            // $table->foreign('village_id')->references('id')->on('villages');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    // Reverse the migrations
     public function down()
     {
         Schema::dropIfExists('village_fields');
