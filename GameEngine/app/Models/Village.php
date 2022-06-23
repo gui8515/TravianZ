@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use app\Http\Controllers\UserController;
+
 class Village extends Model
 {
     use HasFactory;
@@ -25,13 +26,13 @@ class Village extends Model
     public static $rules = [];
 
     // Relationships
-    public function user()    {
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 
-    public function villageFields()    {
+    public function villageFields()
+    {
         return $this->hasMany(VillageField::class);
     }
-
-
 }

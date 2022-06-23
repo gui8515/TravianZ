@@ -25,9 +25,13 @@ class VillageField extends Model
     public static $rules = [];
 
     // Relationships
-    public function village()    {
-        return $this->belongsTo(Village::class);
+    public function village()
+    {
+        return $this->hasOne(Village::class);
     }
 
-
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

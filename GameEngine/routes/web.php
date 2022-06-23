@@ -19,12 +19,8 @@ $router->get('/', function () use ($router) {
     return $host;
 });
 
-// Rourtes for the UserController
+// Routes for the User model
 $router->get('/users', 'UserController@index');
-$router->get('/users-villages', 'UserController@getUsersWithVillages');
-$router->get('/user/{username}', 'UserController@show');
-
-$router->get('/user/{username}/villages', 'UserController@getVillages');
-$router->get('/user/{username}/village/{villageId}', 'UserController@getVillage');
-
-$router->get('/user/{username}/village/{villageId}/units', 'UserController@getUnits');
+$router->get('/users/villages', 'UserController@getUsersWithVillages');
+$router->get('/users/fields', 'UserController@getUsersWithFields');
+$router->get('/user/{id}', 'UserController@show');
