@@ -46,10 +46,10 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // Get all users with villages with fields
-    public function getUsersWithFields()
+    // Get all users with villages with buildings
+    public function getUsersWithBuildings()
     {
-        $user = User::with('villages', 'villages.villagesFields')->get();
+        $user = User::with('villages', 'villages.buildings')->get();
         return response()->json($user);
     }
 
@@ -67,17 +67,17 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // Show user with villages with fields
-    public function showUserWithFields($id)
+    // Show user with villages with buildings
+    public function showUserWithBuildings($id)
     {
-        $user = User::with('villages', 'villages.villagesFields')->find($id);
+        $user = User::with('villages', 'villages.buildings')->find($id);
         return response()->json($user);
     }
 
     // Show user with villages with units
     public function showUserWithUnits($id)
     {
-        $user = User::with('vilages', 'villages.units')->find($id);
+        $user = User::with('villages', 'villages.units')->find($id);
         return response()->json($user);
     }
 }

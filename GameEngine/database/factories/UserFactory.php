@@ -14,29 +14,35 @@ class UserFactory extends Factory
     // Create factory for the model
     public function definition()
     {
-        return [
-            'name' => $this->faker->firstName(),
-            'username' => $this->faker->unique()->userName(),
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => Hash::make(12345668),
-            'description' => $this->faker->sentence,
-            'birthday' => $this->faker->date,
-            'location' => $this->faker->city,
-            'id_tribe' => $this->faker->numberBetween(1, 6),
-            'id_alliance' => $this->faker->numberBetween(1, 200),
-            'is_plus' => $this->faker->boolean,
-            'is_gold' => $this->faker->boolean,
-            'is_protected' => $this->faker->boolean,
-            'is_online' => $this->faker->boolean,
-            'is_banned' => $this->faker->boolean,
-            'plus_expires_at' => $this->faker->dateTimeBetween('now', '+1 week'),
-            'gold_expires_at' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'protect_expires_at' => $this->faker->dateTimeBetween('now', '+1 day'),
-            'last_online' => $this->faker->dateTimeBetween('-1 day', 'now'),
-            'activated_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
-            'banned_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
-            'access_level' => 1,
-            'remember_token' => $this->faker->regexify('[A-Za-z0-9]{10}'),
-        ];
+        //return [
+        //    'name' => $this->faker->firstName(),
+        //    'username' => $this->faker->unique()->userName(),
+        //    'email' => $this->faker->unique()->safeEmail,
+        //    'password' => Hash::make(12345668),
+        //    'description' => $this->faker->sentence,
+        //    'birthday' => $this->faker->date,
+        //    'location' => $this->faker->city,
+        //    'id_tribe' => $this->faker->numberBetween(1, 6),
+        //    'id_alliance' => $this->faker->numberBetween(1, 200),
+        //    'is_plus' => $this->faker->boolean,
+        //    'is_gold' => $this->faker->boolean,
+        //    'is_protected' => $this->faker->boolean,
+        //    'is_online' => $this->faker->boolean,
+        //    'is_banned' => $this->faker->boolean,
+        //    'plus_expires_at' => $this->faker->dateTimeBetween('now', '+1 week'),
+        //    'gold_expires_at' => $this->faker->dateTimeBetween('now', '+1 month'),
+        //    'protect_expires_at' => $this->faker->dateTimeBetween('now', '+1 day'),
+        //    'last_online' => $this->faker->dateTimeBetween('-1 day', 'now'),
+        //    'activated_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
+        //    'banned_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
+        //    'access_level' => 1,
+        //    'remember_token' => $this->faker->regexify('[A-Za-z0-9]{10}'),
+        //];
+
+        $generator = \Faker\Factory::create();
+        $populator = new \Faker\ORM\Propel\Populator($generator);
+        $populator->addEntity('User', 5);
+        $populator->addEntity('Book', 10);
+        $insertedPKs = $populator->execute();
     }
 }

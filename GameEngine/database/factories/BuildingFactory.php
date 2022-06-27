@@ -2,20 +2,20 @@
 
 namespace Database\Factories;
 
-use App\Models\VillageField;
+use App\Models\Building;
 use App\Models\Village;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VillageFieldFactory extends Factory
+class BuildingFactory extends Factory
 {
-    protected $model = VillageField::class;
+    protected $model = Building::class;
 
     public function definition(): array
     {
         // get the village id
         $village = Village::factory()->create();
 
-    	return [
+        return [
             'village_id' => $village['id'],
             'field' => $this->faker->numberBetween(1, 40),
             'build_type' => $this->faker->numberBetween(1, 44),
@@ -26,6 +26,6 @@ class VillageFieldFactory extends Factory
             'is_constructed' => false,
             'is_destroyed' => false,
             'is_occupied' => false,
-    	];
+        ];
     }
 }

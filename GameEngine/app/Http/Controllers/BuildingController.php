@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VillageField;
+use App\Models\Building;
 use Illuminate\Http\Request;
 
-class VillageFieldController extends Controller
+class BuildingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,11 +40,11 @@ class VillageFieldController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\VillageField  $villageField
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Building  $building
      * @return \Illuminate\Http\Response
      */
-    public function show(VillageField $villageField)
+    public function show(Building $building)
     {
         //
     }

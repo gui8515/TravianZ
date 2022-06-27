@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\Tribe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\Village;
+use App\Models\Tribe;
+use App\Models\Unit;
 
 return new class extends Migration
 {
@@ -14,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class);
             $table->foreignIdFor(Village::class);
-            $table->integer('unit_type');
-            $table->foreignIdFor(Tribe::class);
+            $table->integer('tribe')->default(0);
+            $table->integer('type')->default(0);
             $table->integer('amount')->default(1);
             $table->integer('blacksmith_level')->default(0);
             $table->integer('tournament_level')->default(0);

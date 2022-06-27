@@ -12,17 +12,18 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+use App\Enums\TribeEnum;
 
 $router->get('/', function () use ($router) {
-    $host = request()->getHttpHost();
-    $router->app->version();
-    return $host;
+    $tripes = TribeEnum::cases();
+
+    var_dump($tripes);
 });
 
 // Routes for the User model
 $router->get('/users', 'UserController@index');
 $router->get('/users/villages', 'UserController@getUsersWithVillages');
-$router->get('/users/fields', 'UserController@getUsersWithFields');
+$router->get('/users/building', 'UserController@getUsersWithBuildings');
 $router->get('/users/units', 'UserController@getUsersWithUnits');
 
 $router->get('/user/{id}', 'UserController@show');

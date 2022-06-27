@@ -48,7 +48,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|between:6,32|confirmed',
     ];
-// Relationships
+    // Relationships
     public function villages()
     {
         return $this->hasMany(Village::class);
