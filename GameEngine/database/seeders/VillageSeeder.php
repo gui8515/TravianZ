@@ -12,7 +12,7 @@ class VillageSeeder extends Seeder
     public function run()
     {
         Village::factory()
-            ->hasVillageFields(1)
+            ->count(20)
             ->create();
     }
 }

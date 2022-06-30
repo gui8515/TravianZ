@@ -58,8 +58,11 @@ $app->singleton(
 | the default version. You may register other files below as needed.
 |
 */
+config(['app.locale' => 'pt_BR']);
+config(['app.faker_locale' => 'pt_BR']);
 
 $app->configure('app');
+
 
 /*
 |--------------------------------------------------------------------------

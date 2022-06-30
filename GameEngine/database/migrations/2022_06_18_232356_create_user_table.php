@@ -34,6 +34,7 @@ return new class extends Migration
             $table->integer('access_level')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

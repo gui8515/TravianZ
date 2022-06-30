@@ -13,7 +13,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory()
-            ->count(1)
+            ->count(20)
+            ->hasVillages(1, function (array $attributes, User $user) {
+                return ['name' => $user->name . "'s village "];
+            })
             ->create();
     }
 }

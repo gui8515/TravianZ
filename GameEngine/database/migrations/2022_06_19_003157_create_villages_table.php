@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('villages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Village::class)->nullable();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Village::class)->nullable()->constrained();
 
             $table->string('name')->default('Abandoned Village');
             $table->integer('type')->default(0);

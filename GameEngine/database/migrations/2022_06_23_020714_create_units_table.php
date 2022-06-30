@@ -5,8 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\Village;
-use App\Models\Tribe;
-use App\Models\Unit;
 
 return new class extends Migration
 {

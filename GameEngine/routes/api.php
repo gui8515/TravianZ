@@ -26,4 +26,11 @@ $router->get('/users/villages', 'UserController@getUsersWithVillages');
 $router->get('/users/building', 'UserController@getUsersWithBuildings');
 $router->get('/users/units', 'UserController@getUsersWithUnits');
 
+$router->get('/user/{id}/villages', 'UserController@getUserWithVillages');
+$router->get('/user/{id}/{village_id}/buildings', 'UserController@showBuildings');
+$router->get('/user/{id}/{village_id}/units', 'UserController@showUnits');
+
 $router->get('/user/{id}', 'UserController@show');
+$router->get('/user/{id}/{village_id}', 'UserController@showVillage');
+$router->get('/user/{id}/{village_id}/{building_id}', 'UserController@showBuilding');
+$router->get('/user/{id}/{village_id}/{unit_id}', 'UserController@showUnit');

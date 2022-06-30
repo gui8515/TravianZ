@@ -5,52 +5,18 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Village;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use phpDocumentor\Reflection\Types\ArrayKey;
-
-use function PHPUnit\Framework\isNull;
 
 class VillageFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+    // The model that is being created
     protected $model = Village::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
-        $users = User::all('id', 'name')->toArray();
-        $user = $this->faker->randomElement($users);
-        // $user['id'] = 1;
-
-        $villages = Village::all('id', 'name', 'is_capital', 'user_id')
-            ->where('user_id', '=', $user['id'])
-            ->toArray();
-
-        $village = $this->faker->randomElement($villages);
-
-        // If user has no capital village, create one
-        if (sizeof($villages) == 0) {
-            $is_capital = true;
-            $village = ['id' => null];
-        } else {
-            $is_capital = false;
-        }
-
-
         // dd($villages, 'village selecter', $village);
-
         return [
-            'user_id' => $user['id'],
-            'name' => $user['name']."'s village",
-            'is_capital' => $is_capital,
-            'village_id' => $village['id'],
+            'is_capital' => 1,
+            'village_id' => null,
             'population' => $this->faker->numberBetween(1, 1000),
             'loyalty' => $this->faker->numberBetween(70, 100),
             'culture' => $this->faker->numberBetween(1, 500),
