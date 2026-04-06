@@ -60,6 +60,7 @@ if(REG_OPEN == true){ ?>
 <form name="snd" method="post" action="anmelden.php">
 <input type="hidden" name="invited" value="<?php echo $invited; ?>" />
 <input type="hidden" name="ft" value="a1" />
+<?php if(!AUTH_EMAIL) { ?><input type="hidden" name="email" value="" /><?php } ?>
 
 <table cellpadding="1" cellspacing="1" id="sign_input">
 	<tbody>
@@ -69,6 +70,7 @@ if(REG_OPEN == true){ ?>
 			<span class="error"><?php echo $form->getError('name'); ?></span>
 			</td>
 		</tr>
+		<?php if(AUTH_EMAIL) { ?>
 		<tr>
 			<th><?php echo EMAIL; ?></th>
 			<td>
@@ -76,6 +78,7 @@ if(REG_OPEN == true){ ?>
 				<span class="error"><?php echo $form->getError('email'); ?></span>
 				</td>
 			</tr>
+			<?php } ?>
 		<tr>
 			<th><?php echo PASSWORD; ?></th>
 			<td>
@@ -93,8 +96,13 @@ if(REG_OPEN == true){ ?>
 			<th colspan="2"><img src="img/x.gif" class="img_u07" alt="starting position" /></th>
 		</tr>
 		<tr>
-			<td class="nat"><label><input class="radio" type="radio" name="vid" value="1" <?php echo $form->getRadio('vid',1); ?> />&nbsp;<?php echo TRIBE1; /* Romans */ ?></label></td>
+			<td class="nat"><label><input class="radio" type="radio" name="vid" value="0" <?php echo $form->getRadio('vid',0); ?> <?php if($form->getValue('vid') == '') { echo 'checked="checked"'; } ?> />&nbsp;<?php echo RANDOM; ?></label></td>
 			<td class="pos1"><label><input class="radio" type="radio" name="kid" value="0" checked="checked" />&nbsp;<?php echo RANDOM; ?></label></td>
+			<td class="pos2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="nat"><label><input class="radio" type="radio" name="vid" value="1" <?php echo $form->getRadio('vid',1); ?> />&nbsp;<?php echo TRIBE1; /* Romans */ ?></label></td>
+			<td class="pos1">&nbsp;</td>
 			<td class="pos2">&nbsp;</td>
 		</tr>
 		<tr>

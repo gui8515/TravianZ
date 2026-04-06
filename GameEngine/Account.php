@@ -64,6 +64,11 @@ class Account {
 		global $database,$form,$mailer,$generator,$session;
 		$act = '';
 		$invited = (isset($_POST['invited']) && is_numeric($_POST['invited'])) ? (int) $_POST['invited'] : 0;
+		$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+		$tribe = isset($_POST['vid']) ? (int) $_POST['vid'] : 0;
+		if(!AUTH_EMAIL && $email == '') {
+			$email = 'u'.time().rand(1000, 9999).'@local.invalid';
+		}
 		if(!isset($_POST['name']) || trim($_POST['name']) == "") {
 			$form->addError("name",USRNM_EMPTY);
 		}
@@ -97,18 +102,18 @@ class Account {
 
 			}
 		}
-		if(!isset($_POST['email'])) {
+		if(AUTH_EMAIL && $email == '') {
 			$form->addError("email",EMAIL_EMPTY);
 		}
-		else {
-			if(!$this->validEmail($_POST['email'])) {
+		if($email != '') {
+			if(!$this->validEmail($email)) {
 				$form->addError("email",EMAIL_INVALID);
 			}
-			else if(User::exists($database,$_POST['email'])) {
+			else if(User::exists($database,$email)) {
 				$form->addError("email",EMAIL_TAKEN);
 			}
 		}
-		if(!isset($_POST['vid']) || !in_array($_POST['vid'], [1, 2, 3])) {
+		if(!in_array($tribe, [0, 1, 2, 3])) {
 			$form->addError("tribe",TRIBE_EMPTY);
 		}
 		if(!isset($_POST['agb'])) {
@@ -124,22 +129,25 @@ class Account {
             exit;
         }
 		else {
+			if($tribe === 0) {
+				$tribe = rand(1, 3);
+			}
 			if(AUTH_EMAIL){
 			$act = $generator->generateRandStr(10);
 			$act2 = $generator->generateRandStr(5);
-			$uid = $database->activate($_POST['name'],password_hash($_POST['pw'], PASSWORD_BCRYPT,['cost' => 12]),$_POST['email'],$_POST['vid'],$_POST['kid'],$act,$act2);
+			$uid = $database->activate($_POST['name'],password_hash($_POST['pw'], PASSWORD_BCRYPT,['cost' => 12]),$email,$tribe,$_POST['kid'],$act,$act2);
 				if($uid) {
 
-					$mailer->sendActivate($_POST['email'],$_POST['name'],$_POST['pw'],$act);
+					$mailer->sendActivate($email,$_POST['name'],$_POST['pw'],$act);
 					header("Location: activate.php?id=$uid&q=$act2");
 					exit;
 				}
 			}
 			else {
-			    $uid = $database->register($_POST['name'], password_hash($_POST['pw'], PASSWORD_BCRYPT, ['cost' => 12]), $_POST['email'], $_POST['vid'], $act);
+			    $uid = $database->register($_POST['name'], password_hash($_POST['pw'], PASSWORD_BCRYPT, ['cost' => 12]), $email, $tribe, $act);
 				if($uid) {
 					setcookie("COOKUSR" , $_POST['name'], time() + COOKIE_EXPIRE,COOKIE_PATH);
-					setcookie("COOKEMAIL" , $_POST['email'], time() + COOKIE_EXPIRE,COOKIE_PATH);
+					setcookie("COOKEMAIL" , $email, time() + COOKIE_EXPIRE,COOKIE_PATH);
 					$database->updateUserField(
 						$uid,
                         ["act", "invited"],
