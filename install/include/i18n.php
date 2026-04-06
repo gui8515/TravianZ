@@ -70,6 +70,20 @@ function install_t($key, $default = '') {
     return $default !== '' ? $default : $key;
 }
 
+function install_h($key, $default = '') {
+    return htmlspecialchars(install_t($key, $default), ENT_QUOTES, 'UTF-8');
+}
+
+function install_translate_legacy($text) {
+    global $installMessages;
+
+    if (!isset($installMessages['legacy_map']) || !is_array($installMessages['legacy_map']) || empty($installMessages['legacy_map'])) {
+        return $text;
+    }
+
+    return strtr($text, $installMessages['legacy_map']);
+}
+
 $requestedLang = '';
 if (isset($_GET['l'])) {
     $requestedLang = (string) $_GET['l'];

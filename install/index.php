@@ -64,7 +64,7 @@ function proceed() {
         e.disabled = "disabled";
     }, 200);
 
-    e.value = "Processing...";
+	e.value = "<?php echo addslashes(install_t('common_processing', 'Processing...')); ?>";
 
     return true;
 }
@@ -98,12 +98,13 @@ function proceed() {
 
 				<?php
 				if(substr(sprintf('%o', fileperms('../')), -4)<'700'){
-					echo"<span class='f18 c5'>ERROR!</span><br />It's not possible to write the config file. Change the permission to '777'. After that, refresh this page!";
+					echo "<span class='f18 c5'>".install_h('common_error', 'ERROR!')."</span><br />".install_h('index_err_config_permissions', "It is not possible to write the config file. Change the permission to '777' and refresh this page.");
 				} 
 				else if (file_exists("../var/installed")) {
-					echo"<span class='f18 c5'>ERROR!</span><br />Installation appears to have been completed.<br />If this is an error remove /var/installed file in install directory.";
+					echo "<span class='f18 c5'>".install_h('common_error', 'ERROR!')."</span><br />".install_h('index_err_installed', 'Installation appears to have been completed.')."<br />".install_h('index_err_installed_hint', 'If this is an error, remove /var/installed file in install directory.');
 				}
-				else
+				else {
+					ob_start();
 					switch($_GET['s']){
 						case 0:
 						include("templates/greet.tpl");
@@ -124,6 +125,8 @@ function proceed() {
 						include("templates/end.tpl");
 						break;
 					}
+					echo install_translate_legacy(ob_get_clean());
+				}
 				?>
 
 			<div id="side_info" class="outgame"></div>

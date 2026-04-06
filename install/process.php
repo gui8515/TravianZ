@@ -17,9 +17,10 @@
 
 // don't let SQL time out when 30-500 seconds (depending on php.ini) is not enough
 @set_time_limit(0);
+include_once("include/i18n.php");
 
 if (file_exists("../var/installed")) {
-	die("<span class='f18 c5'>ERROR!</span><br />Installation appears to have been completed.<br />If this is an error remove /var/installed file in install directory.");
+	die("<span class='f18 c5'>".install_h('common_error', 'ERROR!')."</span><br />".install_h('index_err_installed', 'Installation appears to have been completed.')."<br />".install_h('index_err_installed_hint', 'If this is an error, remove /var/installed file in install directory.'));
 }
 
 class Process {
@@ -45,11 +46,11 @@ class Process {
 	    $configFile = "../GameEngine/config.php";
 		$configTemplateFile = "../GameEngine/Admin/Mods/constant_format.tpl";
 
-		$gameConfig = @fopen($configFile, 'w') or die("<br/><br/><br/>Can't create or update file: GameEngine\config.php");
+		$gameConfig = @fopen($configFile, 'w') or die("<br/><br/><br/>".install_h('process_err_write_config', 'Cannot create or update file: GameEngine/config.php'));
 
 		// copy the contents of the config template file into a new location, used when editing
 		// game configuration from the in-game Admin (since the install folder would be deleted at that point)
-		$templateFile = @fopen($configTemplateFile, 'w') or die("<br/><br/><br/>Can't create or update file: GameEngine\Admin\Mods\constant_format.tpl");
+		$templateFile = @fopen($configTemplateFile, 'w') or die("<br/><br/><br/>".install_h('process_err_write_constant_tpl', 'Cannot create or update file: GameEngine/Admin/Mods/constant_format.tpl'));
 		fclose($templateFile);
 
 		$text = file_get_contents("data/constant_format.tpl");

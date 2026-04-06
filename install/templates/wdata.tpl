@@ -25,11 +25,11 @@
 include_once('../GameEngine/config.php');
 
 if (isset($_GET['c']) && $_GET['c'] == '1') {
-    echo '<br /><hr /><br /><div class="headline"><span class="f10 c5">Error creating wdata. Check configuration or file.</span></div><br><br>';
+  echo '<br /><hr /><br /><div class="headline"><span class="f10 c5">' . install_h('wdata_err_create', 'Error creating world data. Check configuration or file.') . '</span></div><br><br>';
 }
 if (isset($_GET['err']) && $_GET['err'] == '1') {
-    echo '<br /><hr /><br /><div class="headline"><span class="f10 c5">Existing World Data found in the database! Please empty tables <i>'
-        . TB_PREFIX . 'odata, ' . TB_PREFIX . 'units, ' . TB_PREFIX . 'vdata, ' . TB_PREFIX . 'wdata</i> before continuing.</span></div><br /><br />';
+  echo '<br /><hr /><br /><div class="headline"><span class="f10 c5">' . install_h('wdata_err_existing_a', 'Existing world data found in the database. Please empty tables') . ' <i>'
+    . TB_PREFIX . 'odata, ' . TB_PREFIX . 'units, ' . TB_PREFIX . 'vdata, ' . TB_PREFIX . 'wdata</i> ' . install_h('wdata_err_existing_b', 'before continuing.') . '</span></div><br /><br />';
 }
 
 $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] === '1';
@@ -39,39 +39,38 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
     <input type="hidden" name="subwdata" value="1" />
 
     <p>
-        <span class="f10 c">Create World Data</span>
+      <span class="f10 c"><?php echo install_h('wdata_title', 'Create World Data'); ?></span>
 
         <table>
             <tr>
                 <td>
-                    <b>Warning</b>: This can take some time. Please wait until the next page has been loaded.
-                    Click Create to proceed...
+                    <b><?php echo install_h('common_warning', 'Warning'); ?></b>: <?php echo install_h('wdata_warning_text', 'This can take some time. Please wait until the next page has loaded. Click Create to proceed...'); ?>
                     <br /><br />
 
                     <!-- Submit block (hidden when autoStartCroppers=1) -->
                     <div id="submitWrap" style="display:<?php echo $autoStartCroppers ? 'none' : 'block'; ?>;">
                         <center>
-                            <input type="submit" name="Submit" id="Submit" value="Create..." onClick="return proceed()" />
+                            <input type="submit" name="Submit" id="Submit" value="<?php echo install_h('common_create', 'Create...'); ?>" onClick="return proceed()" />
                             <br /><br />
                         </center>
                     </div>
 
                     <!-- Progress UI (shown when startCroppers=1) -->
                     <div id="progressBox" style="display:<?php echo $autoStartCroppers ? 'block' : 'none'; ?>; margin-top:20px;">
-                        <div style="font-weight:bold;margin-bottom:6px;">Building croppers…</div>
+                        <div style="font-weight:bold;margin-bottom:6px;"><?php echo install_h('wdata_building_croppers', 'Building croppers...'); ?></div>
 
                         <div style="background:#ddd;border-radius:8px;overflow:hidden;height:20px;max-width:500px;">
                             <!-- Orange bar to match Travian vibes -->
                             <div id="pbar" style="background:#f6a21a;height:100%;width:0%;transition:width .2s;"></div>
                         </div>
 
-                        <div id="pinfo" style="margin-top:6px;font-size:13px;color:#333;">Starting…</div>
+                        <div id="pinfo" style="margin-top:6px;font-size:13px;color:#333;"><?php echo install_h('wdata_starting', 'Starting...'); ?></div>
 
                         <pre id="plog" style="margin-top:10px;background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:8px;font-size:12px;max-height:200px;overflow:auto;"></pre>
 
                         <!-- Continue button appears on completion -->
 						<div id="autoNext" style="display:none;margin-top:10px;">
-						  Proceeding to next step in <b id="cd">3</b>…
+						  <?php echo install_h('wdata_proceed_next_in', 'Proceeding to next step in'); ?> <b id="cd">3</b>...
 						</div>
                     </div>
 
@@ -80,6 +79,15 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
   var NEXT_URL = 'index.php?s=4'; // your next step
   var COUNTDOWN_SECS = 3;
   var finished = false;
+  var I18N = {
+    browserNoLive: <?php echo json_encode(install_t('wdata_js_no_live_progress', 'Your browser does not support live progress.')); ?>,
+    reconnected: <?php echo json_encode(install_t('wdata_js_reconnected', 'Reconnected to server.')); ?>,
+    completed: <?php echo json_encode(install_t('wdata_js_completed', 'Completed!')); ?>,
+    serverError: <?php echo json_encode(install_t('wdata_js_server_error', 'Server reported an error.')); ?>,
+    connectionHiccup: <?php echo json_encode(install_t('wdata_js_connection_hiccup', 'Connection hiccup')); ?>,
+    retrying: <?php echo json_encode(install_t('wdata_js_retrying', 'retrying...')); ?>,
+    tooManyFailures: <?php echo json_encode(install_t('wdata_js_too_many_failures', 'Too many connection failures - skipping croppers build.')); ?>
+  };
 
   function startCountdown() {
     var box = document.getElementById('autoNext');
@@ -108,7 +116,7 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
     box.style.display = 'block';
 
     if (!('EventSource' in window)) {
-      plog.textContent += "Your browser does not support live progress.\n";
+      plog.textContent += I18N.browserNoLive + "\n";
       return;
     }
 
@@ -120,7 +128,7 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
     es.onopen = function () {
       // When a connection (re)opens and we had errors before, log a small note
       if (!finished && retries > 0) {
-        plog.textContent += "Reconnected to server.\n";
+        plog.textContent += I18N.reconnected + "\n";
         plog.scrollTop = plog.scrollHeight;
       }
     };
@@ -151,7 +159,7 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
 
         if (pct >= 100) {
           finished = true;
-          plog.textContent += "✅ Completed!\n";
+          plog.textContent += I18N.completed + "\n";
           plog.scrollTop = plog.scrollHeight;
           es.close();
           startCountdown();
@@ -160,7 +168,7 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
         // Optional: handle explicit error flag from server if you ever send it
         if (d.error) {
           finished = true;
-          plog.textContent += "❌ " + (d.msg || "Server reported an error.") + "\n";
+          plog.textContent += (d.msg || I18N.serverError) + "\n";
           plog.scrollTop = plog.scrollHeight;
           es.close();
           startCountdown();
@@ -176,13 +184,13 @@ $autoStartCroppers = isset($_GET['startCroppers']) && $_GET['startCroppers'] ===
       if (finished) return;
 
       retries++;
-      plog.textContent += "⚠ Connection hiccup (" + retries + "/" + MAX_RETRIES + "), retrying…\n";
+      plog.textContent += I18N.connectionHiccup + " (" + retries + "/" + MAX_RETRIES + "), " + I18N.retrying + "\n";
       plog.scrollTop = plog.scrollHeight;
 
       // EventSource will auto-reconnect by itself; we just decide when to give up
       if (retries >= MAX_RETRIES) {
         finished = true;
-        plog.textContent += "❌ Too many connection failures — skipping croppers build.\n";
+        plog.textContent += I18N.tooManyFailures + "\n";
         plog.scrollTop = plog.scrollHeight;
         es.close();
         // Reuse the same countdown UI to move on

@@ -16,23 +16,23 @@
 #################################################################################
 ?>
 <p>
-Thanks for installing TravianZ.
-<h4>Please remove/rename the installation folder.</h4>
-All the files are placed. The database is created, so you can now start playing on your own Travian.
+<?php echo install_h('end_thanks', 'Thanks for installing TravianZ.'); ?>
+<h4><?php echo install_h('end_remove_install', 'Please remove/rename the installation folder.'); ?></h4>
+<?php echo install_h('end_ready_text', 'All files are in place and the database is created. You can now start playing on your own Travian server.'); ?>
 </p>
 
 <ul>
-    <li><h4>After Installation</h4></li>
-    <li>Delete install folder (sudo rm -R install)</li>
-    <li>CHMOD GameEngine back to 755 (sudo chmod -R 755 GameEngine)</li>
-    <li>CHMOD Prevention to 777 (sudo chmod -R 777 GameEngine/Prevention)</li>
-    <li>CHMOD Notes to 777 (sudo chmod -R 777 GameEngine/Notes)</li>
-    <li>CHMOD var/log to 777 (sudo chmod -R 777 var/log)</li>
+    <li><h4><?php echo install_h('end_after_install', 'After Installation'); ?></h4></li>
+    <li><?php echo install_h('intro_after_install_1', 'Delete install folder (sudo rm -R install)'); ?></li>
+    <li><?php echo install_h('intro_after_install_2', 'CHMOD GameEngine back to 755 (sudo chmod -R 755 GameEngine)'); ?></li>
+    <li><?php echo install_h('intro_after_install_3', 'CHMOD Prevention to 777 (sudo chmod -R 777 GameEngine/Prevention)'); ?></li>
+    <li><?php echo install_h('intro_after_install_4', 'CHMOD Notes to 777 (sudo chmod -R 777 GameEngine/Notes)'); ?></li>
+    <li><?php echo install_h('intro_after_install_5', 'CHMOD var/log to 777 (sudo chmod -R 777 var/log)'); ?></li>
 </ul>
 
 <ul>
-    <li><h4>After Installation</h4></li>
-    <li>Protect folder /Admin with password protect directory</li>
+    <li><h4><?php echo install_h('end_security_after_install', 'After Installation (Security)'); ?></h4></li>
+    <li><?php echo install_h('intro_security_1', 'Protect folder /Admin with a password-protected directory.'); ?></li>
 </ul>
 
 <?php include("../GameEngine/config.php"); 
@@ -41,11 +41,11 @@ rename("../install/","../installed_".$time);
 touch('../var/installed');
 ?>
 <p>
-<center><font size="4"><a href="<?php echo HOMEPAGE; ?>">> My TravianZ homepage <</font></a></center>
+<center><font size="4"><a href="<?php echo HOMEPAGE; ?>">&gt; <?php echo install_h('end_homepage_link', 'My TravianZ homepage'); ?> &lt;</font></a></center>
 </p>
 </br>
 <center>
-<h2>Please support our developers and donate.</h2>
+<h2><?php echo install_h('end_donate_title', 'Please support our developers and donate.'); ?></h2>
 </br>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">

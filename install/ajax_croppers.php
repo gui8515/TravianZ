@@ -6,6 +6,7 @@
 require_once __DIR__ . '/../GameEngine/config.php';
 require_once __DIR__ . '/../GameEngine/Database.php';
 require_once __DIR__ . '/../GameEngine/Admin/database.php';
+require_once __DIR__ . '/include/i18n.php';
 
 // --- Headers for SSE and no buffering ---
 header('Content-Type: text/event-stream; charset=utf-8');
@@ -49,11 +50,11 @@ global $database;
 try {
     $total = $database->TotalCroppers();
 } catch (Throwable $e) {
-    sse_send(['pct'=>0,'done'=>0,'total'=>0,'msg'=>'Count failed: '.$e->getMessage()]);
+    sse_send(['pct'=>0,'done'=>0,'total'=>0,'msg'=>install_t('ajax_count_failed', 'Count failed').': '.$e->getMessage()]);
     exit;
 }
 
-sse_send(['pct'=>0,'done'=>0,'total'=>$total,'msg'=>"Starting croppers build (found $total tiles)…"]);
+sse_send(['pct'=>0,'done'=>0,'total'=>$total,'msg'=>sprintf(install_t('ajax_starting_croppers', 'Starting croppers build (found %d tiles)...'), $total)]);
 
 // 2) Build with live reporter (pings to keep proxies happy)
 $lastPing = time();
@@ -75,7 +76,7 @@ if (!empty($out['ok'])) {
         'pct'=>100,
         'done'=>(int)$out['processed'],
         'total'=>(int)$out['target'],
-        'msg'=>'Done building croppers.'
+        'msg'=>install_t('ajax_done_croppers', 'Done building croppers.')
     ]);
 } else {
     sse_send([
@@ -83,7 +84,7 @@ if (!empty($out['ok'])) {
         'pct'=>0,
         'done'=>0,
         'total'=>(int)$total,
-        'msg'=>'Error: '.($out['msg'] ?? 'unknown')
+        'msg'=>install_t('common_error', 'ERROR!').': '.($out['msg'] ?? install_t('common_unknown', 'unknown'))
     ]);
 }
 exit;
