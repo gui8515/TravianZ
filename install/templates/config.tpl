@@ -215,6 +215,7 @@ $dbPrefix = $_SESSION['install_random_prefix'];
                     <option value="es">Spanish</option>
                     <option value="rs">Serbian</option>
                     <option value="ru">Rusian</option>
+                    <option value="pt_br">Portuguese (Brazil)</option>
                     <option value="zh_tw">Taiwanese</option>
                 </select>
             </td>
