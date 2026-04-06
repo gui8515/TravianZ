@@ -39,6 +39,22 @@ $invited=(isset($_GET['uid'])) ? filter_var($_GET['uid'], FILTER_SANITIZE_NUMBER
 	<link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?f4b7d" rel="stylesheet" type="text/css" />
 	<link href="<?php echo GP_LOCATE ?>travian.css?f4b7d" rel="stylesheet" type="text/css" />
 		<link href="<?php echo GP_LOCATE ?>lang/en/lang.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		#tribeQuickInfo {
+			margin: 12px 0;
+			padding: 10px 12px;
+			border: 1px solid #c9b37b;
+			background: #f8f1dc;
+		}
+		#tribeQuickInfo h4 {
+			margin: 0 0 6px;
+			font-size: 14px;
+		}
+		#tribeQuickInfo p {
+			margin: 3px 0;
+			line-height: 1.3;
+		}
+	</style>
 	   </head>
 
 <body class="v35 ie ie7" onload="initCounter()">
@@ -118,6 +134,13 @@ if(REG_OPEN == true){ ?>
 	</tbody>
 </table>
 
+<div id="tribeQuickInfo">
+	<h4 id="tribeQuickTitle"><?php echo RANDOM; ?></h4>
+	<p id="tribeQuickPros"></p>
+	<p id="tribeQuickCons"></p>
+	<p id="tribeQuickStyle"></p>
+</div>
+
 <ul class="important">
 <?php
 echo $form->getError('tribe');
@@ -160,5 +183,53 @@ if(NEWSBOX3) { include("Templates/News/newsbox3.tpl"); }
 
 <?php include("Templates/footer.tpl"); ?>
 <div id="ce"></div>
+<script type="text/javascript">
+window.addEvent('domready', function() {
+	var tribeInfo = {
+		'0': {
+			title: '<?php echo addslashes(RANDOM); ?>',
+			pros: 'Vantagem: sorteia automaticamente entre Romanos, Teutoes e Gauleses.',
+			cons: 'Desvantagem: voce nao escolhe seu estilo inicial.',
+			style: 'Ideal para: quem quer comecar rapido sem decidir tribo.'
+		},
+		'1': {
+			title: '<?php echo addslashes(TRIBE1); ?>',
+			pros: 'Vantagem: boa economia e evolucao de aldeia consistente.',
+			cons: 'Desvantagem: tropas com custo maior no inicio.',
+			style: 'Ideal para: crescimento equilibrado e progressao estavel.'
+		},
+		'2': {
+			title: '<?php echo addslashes(TRIBE2); ?>',
+			pros: 'Vantagem: ataque forte e excelente para saque.',
+			cons: 'Desvantagem: defesa inicial mais fragil.',
+			style: 'Ideal para: jogadores agressivos e ativos.'
+		},
+		'3': {
+			title: '<?php echo addslashes(TRIBE3); ?>',
+			pros: 'Vantagem: boa defesa e mobilidade de tropas.',
+			cons: 'Desvantagem: pressao ofensiva inicial menor.',
+			style: 'Ideal para: jogo tatico, defensivo e suporte a alianca.'
+		}
+	};
+
+	var setTribeInfo = function(value) {
+		if(!tribeInfo[value]) {
+			return;
+		}
+
+		$('tribeQuickTitle').set('text', tribeInfo[value].title);
+		$('tribeQuickPros').set('text', tribeInfo[value].pros);
+		$('tribeQuickCons').set('text', tribeInfo[value].cons);
+		$('tribeQuickStyle').set('text', tribeInfo[value].style);
+	};
+
+	$$('input[name=vid]').addEvent('change', function() {
+		setTribeInfo(this.get('value'));
+	});
+
+	var selected = $$('input[name=vid]:checked');
+	setTribeInfo(selected.length ? selected[0].get('value') : '0');
+});
+</script>
 </body>
 </html>
