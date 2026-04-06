@@ -30,3 +30,29 @@
 <div id="cfoot">
 </div>
 </div>
+
+<script type="text/javascript">
+(function() {
+	if (!document.querySelector('link[rel="manifest"]')) {
+		var manifest = document.createElement('link');
+		manifest.rel = 'manifest';
+		manifest.href = '/manifest.json';
+		document.head.appendChild(manifest);
+	}
+
+	if (!document.querySelector('meta[name="theme-color"]')) {
+		var themeColor = document.createElement('meta');
+		themeColor.name = 'theme-color';
+		themeColor.content = '#2a2a2a';
+		document.head.appendChild(themeColor);
+	}
+
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', function() {
+			navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function() {
+				// Keep silent to avoid noisy logs in production.
+			});
+		});
+	}
+})();
+</script>

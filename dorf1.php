@@ -34,6 +34,8 @@ else $building->procBuild($_GET);
 <head>
 	<title><?php echo SERVER_NAME . ' - Village overview &raquo; ' . $village->vname; ?></title>
 	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="manifest" href="/manifest.json" />
+	<meta name="theme-color" content="#2a2a2a" />
 	<meta http-equiv="cache-control" content="max-age=0" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="expires" content="0" />

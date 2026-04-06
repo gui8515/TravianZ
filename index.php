@@ -57,6 +57,8 @@ AccessLogger::logRequest();
 <head>
 	<title><?php echo SERVER_NAME; ?></title>
 	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="manifest" href="/manifest.json" />
+	<meta name="theme-color" content="#2a2a2a" />
 	<link rel="stylesheet" type="text/css" href="gpack/travian/main.css" />
 	<link rel="stylesheet" type="text/css" href="gpack/travian/flaggs.css" />
 	<link rel="stylesheet" type="text/css" href="gpack/travian/main_en.css" />
