@@ -7031,9 +7031,102 @@ References: User ID/Message ID, Mode
         return $this->getVillage($vid, 0, $use_cache)['owner'];
 	}
 
+    /**
+     * Splits a SQL dump into executable statements.
+     *
+     * Handles string literals and SQL comments so semicolons inside strings
+     * do not break statement parsing.
+     *
+     * @param string $sql
+     * @return array<int, string>
+     */
+    private function splitSqlStatements($sql) {
+        $statements = [];
+        $current = '';
+        $len = strlen($sql);
+        $inSingle = false;
+        $inDouble = false;
+        $inLineComment = false;
+        $inBlockComment = false;
+
+        for ($i = 0; $i < $len; $i++) {
+            $ch = $sql[$i];
+            $next = ($i + 1 < $len) ? $sql[$i + 1] : '';
+
+            if ($inLineComment) {
+                if ($ch === "\n") {
+                    $inLineComment = false;
+                }
+                continue;
+            }
+
+            if ($inBlockComment) {
+                if ($ch === '*' && $next === '/') {
+                    $inBlockComment = false;
+                    $i++;
+                }
+                continue;
+            }
+
+            if (!$inSingle && !$inDouble) {
+                if ($ch === '-' && $next === '-' && ($i + 2 >= $len || ctype_space($sql[$i + 2]))) {
+                    $inLineComment = true;
+                    continue;
+                }
+                if ($ch === '#') {
+                    $inLineComment = true;
+                    continue;
+                }
+                if ($ch === '/' && $next === '*') {
+                    $inBlockComment = true;
+                    continue;
+                }
+            }
+
+            if ($ch === "'" && !$inDouble) {
+                $escaped = ($i > 0 && $sql[$i - 1] === '\\');
+                if (!$escaped) {
+                    $inSingle = !$inSingle;
+                }
+                $current .= $ch;
+                continue;
+            }
+
+            if ($ch === '"' && !$inSingle) {
+                $escaped = ($i > 0 && $sql[$i - 1] === '\\');
+                if (!$escaped) {
+                    $inDouble = !$inDouble;
+                }
+                $current .= $ch;
+                continue;
+            }
+
+            if ($ch === ';' && !$inSingle && !$inDouble) {
+                $stmt = trim($current);
+                if ($stmt !== '' && strpos($stmt, '--') !== 0 && strpos($stmt, '#') !== 0) {
+                    $statements[] = $stmt;
+                }
+                $current = '';
+                continue;
+            }
+
+            $current .= $ch;
+        }
+
+        $tail = trim($current);
+        if ($tail !== '' && strpos($tail, '--') !== 0 && strpos($tail, '#') !== 0) {
+            $statements[] = $tail;
+        }
+
+        return $statements;
+    }
+
 	/**
 	 * Creates a database structure for the game.
 	 * Used during installation.
+	 *
+	 * @param callable|null $reporter Optional progress reporter callback with signature:
+	 *                                function(int $done, int $total, int $pct, string $message): void
 	 *
 	 * @return boolean|number Returns TRUE, FALSE or -1. True is for successful data import
 	 *                        (from prepared SQL file), false is in case of an SQL error.
@@ -7041,15 +7134,22 @@ References: User ID/Message ID, Mode
 	 *                        and unhandled exceptions.
 	 */
 
-    public function createDbStructure() {
+    public function createDbStructure($reporter = null) {
         global $autoprefix;
 
         try {
+            if (is_callable($reporter)) {
+                $reporter(0, 0, 0, 'Validating existing database structure...');
+            }
+
             // check that we don't have the structure in place already
             // (we'd have at least 1 user present, since 4 are being created by default - Support, Nature, Multihunter & Taskmaster)
             try {
                 $data_exist = $this->query_return("SELECT * FROM " . TB_PREFIX . "users LIMIT 1");
                 if ($data_exist && count($data_exist)) {
+                    if (is_callable($reporter)) {
+                        $reporter(0, 0, 0, 'Existing game tables were detected.');
+                    }
                     return false;
                 }
             } catch (\Exception $e) {
@@ -7059,17 +7159,60 @@ References: User ID/Message ID, Mode
             // load the DB structure SQL file
             $str = file_get_contents($autoprefix."var/db/struct.sql");
             $str = preg_replace("'%PREFIX%'", TB_PREFIX, $str);
-            $result = $this->dblink->multi_query($str);
+
+            $statements = $this->splitSqlStatements($str);
+            $totalStatements = count($statements);
+
+            if ($totalStatements === 0) {
+                if (is_callable($reporter)) {
+                    $reporter(0, 0, 0, 'No SQL statements found in struct.sql.');
+                }
+                return -1;
+            }
+
+            $done = 0;
+            foreach ($statements as $stmt) {
+                $result = mysqli_query($this->dblink, $stmt);
+                if (!$result) {
+                    if (is_callable($reporter)) {
+                        $reporter(
+                            $done,
+                            $totalStatements,
+                            (int) floor(($done / $totalStatements) * 100),
+                            'SQL error: ' . mysqli_error($this->dblink)
+                        );
+                    }
+                    return -1;
+                }
+
+                $done++;
+
+                if (is_callable($reporter)) {
+                    $label = 'Executing SQL statement';
+                    if (preg_match('/^\s*(CREATE\s+TABLE|INSERT\s+INTO|ALTER\s+TABLE|UPDATE\s+|DELETE\s+FROM)\s+`?([^\s`(]+)/i', $stmt, $match)) {
+                        $label = strtoupper($match[1]) . ' ' . $match[2];
+                    }
+                    $reporter(
+                        $done,
+                        $totalStatements,
+                        (int) floor(($done / $totalStatements) * 100),
+                        $label
+                    );
+                }
+            }
 
             // fetch results of the multi-query in order to allow subsequent query() and multi_query() calls to work
             while (mysqli_more_results($this->dblink) && mysqli_next_result($this->dblink)) {;}
 
-            if (!$result) {
-                return false;
-            }
         } catch (\Exception $e) {
-            echo($e);
+            if (is_callable($reporter)) {
+                $reporter(0, 0, 0, 'Unexpected exception: ' . $e->getMessage());
+            }
             return -1;
+        }
+
+        if (is_callable($reporter)) {
+            $reporter(100, 100, 100, 'Database structure created successfully.');
         }
 
         return true;

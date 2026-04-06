@@ -62,6 +62,8 @@ class Account {
 
 	private function Signup() {
 		global $database,$form,$mailer,$generator,$session;
+		$act = '';
+		$invited = (isset($_POST['invited']) && is_numeric($_POST['invited'])) ? (int) $_POST['invited'] : 0;
 		if(!isset($_POST['name']) || trim($_POST['name']) == "") {
 			$form->addError("name",USRNM_EMPTY);
 		}
@@ -113,7 +115,7 @@ class Account {
 			$form->addError("agree",AGREE_ERROR);
 		}
 		if($form->returnErrors() > 0) {
-            $form->addError("invt",$_POST['invited']);
+		$form->addError("invt",$invited);
             $_SESSION['errorarray'] = $form->getErrors();
             $_SESSION['valuearray'] = $_POST;
 
@@ -141,7 +143,7 @@ class Account {
 					$database->updateUserField(
 						$uid,
                         ["act", "invited"],
-                        ["", $_POST['invited']],
+						["", $invited],
                         1
                     );
 
