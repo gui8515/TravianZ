@@ -1,50 +1,61 @@
 
 	<br>
 
-	<h4>&nbsp;&nbsp;Disclaimer</h4>
+	<form method="get" action="index.php" style="margin-left: 20px; margin-bottom: 10px;">
+		<input type="hidden" name="s" value="0" />
+		<label for="install_lang" class="f9 c6"><?php echo htmlspecialchars(install_t('intro_language', 'Installer language'), ENT_QUOTES, 'UTF-8'); ?>:</label>
+		<select name="l" id="install_lang" onchange="this.form.submit()">
+			<?php foreach($installAvailableLanguages as $langCode => $langLabel) { ?>
+				<option value="<?php echo htmlspecialchars($langCode, ENT_QUOTES, 'UTF-8'); ?>"<?php if($installLang === $langCode) { echo ' selected="selected"'; } ?>><?php echo htmlspecialchars($langLabel, ENT_QUOTES, 'UTF-8'); ?></option>
+			<?php } ?>
+		</select>
+		<noscript><input type="submit" value="OK" /></noscript>
+	</form>
+
+	<h4>&nbsp;&nbsp;<?php echo htmlspecialchars(install_t('intro_disclaimer_title', 'Disclaimer'), ENT_QUOTES, 'UTF-8'); ?></h4>
 
 	<ul>
-	<li>Along with the installation/usage of this game, you shall be fully responsible for any legal results that may raised initiated by the owners of any unlicensed content you permit your copy of this game to publish.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_1', 'Along with the installation/usage of this game, you shall be fully responsible for any legal results raised by the owners of any unlicensed content your copy publishes.'), ENT_QUOTES, 'UTF-8'); ?></li>
 
-	<li>Neither the team that created this script nor the team that customised it to create this distribution/release shall be responsible for any damage done to your computer/server system.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_2', 'Neither the team that created this script nor the team that customized this distribution shall be responsible for any damage done to your computer/server system.'), ENT_QUOTES, 'UTF-8'); ?></li>
 
-	<li>All code was confirmed to be running correctly by the creation team without any visible security risk they were aware of at the time the released it. Similarly for the customisation team who customised it to create this distribution/release.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_3', 'All code was confirmed to run correctly by the original team, without visible security risks they were aware of at release time.'), ENT_QUOTES, 'UTF-8'); ?></li>
 
-	<li>Users are asked to review the code on their own accord and behalf.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_4', 'Users are asked to review the code on their own behalf.'), ENT_QUOTES, 'UTF-8'); ?></li>
 
-	<li>Any customization to the source code are the property of each customisation's author, it is up to each author's discretion whether to share it by including it in free open source distributions such as this one.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_5', 'Any customizations are the property of each customization author; sharing remains at each author\'s discretion.'), ENT_QUOTES, 'UTF-8'); ?></li>
 
-	<li><b>You have no rights to edit copyright notices or/and claim this script as your own.</b></li>
+	<li><b><?php echo htmlspecialchars(install_t('intro_disclaimer_6', 'You have no rights to edit copyright notices or claim this script as your own.'), ENT_QUOTES, 'UTF-8'); ?></b></li>
 
-	<li>Last but not least, Enjoy.</li>
+	<li><?php echo htmlspecialchars(install_t('intro_disclaimer_7', 'Last but not least, enjoy.'), ENT_QUOTES, 'UTF-8'); ?></li>
 	</ul>
 
         <br>
 	<ul>
-	<li><h4>Before Installation (Linux):</h4></li>
-	<li>CHMOD install to 777 (chmod -R 777 install)</li>
-	<li>CHMOD GameEngine to 777 (chmod -R 777 GameEngine)</li>
-	<li><h4>After Installation</h4></li>
-	<li>Delete install folder (sudo rm -R install)</li>
-	<li>CHMOD GameEngine back to 755 (sudo chmod -R 755 GameEngine)</li>
-    <li>CHMOD Prevention to 777 (sudo chmod -R 777 GameEngine/Prevention)</li>
-    <li>CHMOD Notes to 777 (sudo chmod -R 777 GameEngine/Notes)</li>
-    <li>CHMOD var/log to 777 (sudo chmod -R 777 var/log)</li>
+	<li><h4><?php echo htmlspecialchars(install_t('intro_before_install_title', 'Before Installation (Linux)'), ENT_QUOTES, 'UTF-8'); ?>:</h4></li>
+	<li><?php echo htmlspecialchars(install_t('intro_before_install_1', 'CHMOD install to 777 (chmod -R 777 install)'), ENT_QUOTES, 'UTF-8'); ?></li>
+	<li><?php echo htmlspecialchars(install_t('intro_before_install_2', 'CHMOD GameEngine to 777 (chmod -R 777 GameEngine)'), ENT_QUOTES, 'UTF-8'); ?></li>
+	<li><h4><?php echo htmlspecialchars(install_t('intro_after_install_title', 'After Installation'), ENT_QUOTES, 'UTF-8'); ?></h4></li>
+	<li><?php echo htmlspecialchars(install_t('intro_after_install_1', 'Delete install folder (sudo rm -R install)'), ENT_QUOTES, 'UTF-8'); ?></li>
+	<li><?php echo htmlspecialchars(install_t('intro_after_install_2', 'CHMOD GameEngine back to 755 (sudo chmod -R 755 GameEngine)'), ENT_QUOTES, 'UTF-8'); ?></li>
+    <li><?php echo htmlspecialchars(install_t('intro_after_install_3', 'CHMOD Prevention to 777 (sudo chmod -R 777 GameEngine/Prevention)'), ENT_QUOTES, 'UTF-8'); ?></li>
+    <li><?php echo htmlspecialchars(install_t('intro_after_install_4', 'CHMOD Notes to 777 (sudo chmod -R 777 GameEngine/Notes)'), ENT_QUOTES, 'UTF-8'); ?></li>
+    <li><?php echo htmlspecialchars(install_t('intro_after_install_5', 'CHMOD var/log to 777 (sudo chmod -R 777 var/log)'), ENT_QUOTES, 'UTF-8'); ?></li>
 	</ul>
 	
 	<ul>
-	<li><h4>After Installation</h4></li>
-	<li>Protect folder /Admin with password protect directory</li>
+	<li><h4><?php echo htmlspecialchars(install_t('intro_security_title', 'After Installation (Security)'), ENT_QUOTES, 'UTF-8'); ?></h4></li>
+	<li><?php echo htmlspecialchars(install_t('intro_security_1', 'Protect folder /Admin with a password-protected directory.'), ENT_QUOTES, 'UTF-8'); ?></li>
 	</ul>
 
 	<div class="lbox">
-	TravianZ Team
+	<?php echo htmlspecialchars(install_t('intro_team', 'TravianZ Team'), ENT_QUOTES, 'UTF-8'); ?>
 	</div>
 	<br>
 
 	<center>
 	<form>
-		<input type="button" name="next" value="Next" onclick="location.href='?s=1'">
+		<input type="button" name="next" value="<?php echo htmlspecialchars(install_t('intro_next', 'Next'), ENT_QUOTES, 'UTF-8'); ?>" onclick="location.href='?s=1&amp;l=<?php echo rawurlencode($installLang); ?>'">
 	</form>
 	</center>
 

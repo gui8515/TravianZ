@@ -2,6 +2,7 @@
 // don't let SQL time out when 30-500 seconds (depending on php.ini) is not enough
 @set_time_limit(0);
 
+include("include/i18n.php");
 include("templates/script.tpl");
 
 if(!isset($_GET['s'])) {
@@ -32,7 +33,7 @@ date_default_timezone_set($t_zone);
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>TravianZ Installation</title>
+	<title><?php echo htmlspecialchars(install_t('install_page_title', 'TravianZ Installation'), ENT_QUOTES, 'UTF-8'); ?></title>
 	<link rel="shortcut icon" href="favicon.ico" />
 	<meta http-equiv="cache-control" content="max-age=0" />
 	<meta http-equiv="pragma" content="no-cache" />
@@ -53,7 +54,7 @@ function refresh(tz) {
      var dt = new Array();
     dt=tz.split(",");
     tz=dt[0];
-    location="?s=1&t="+tz;
+	location="?s=1&t="+tz+"&l=<?php echo rawurlencode($installLang); ?>";
 }
 function proceed() {
 	var e = document.getElementById('Submit');
@@ -85,14 +86,14 @@ function proceed() {
 				<div id="content" class="login">
 					<?php
 					IHG_Progressbar::draw_css();
-					$bar = new IHG_Progressbar(6, 'Step %d from %d ');
+					$bar = new IHG_Progressbar(6, install_t('install_step_label', 'Step %d from %d'));
 					$bar->draw();
 					for($i = 0; $i < ($_GET['s']+1); $i++) {
 						$bar->tick();
 					}
 					?>
 				<div class="headline"><center>
-				<span class="f18 c5">TravianZ Installation Script</span>
+				<span class="f18 c5"><?php echo htmlspecialchars(install_t('install_script_title', 'TravianZ Installation Script'), ENT_QUOTES, 'UTF-8'); ?></span>
 				</center></div>
 
 				<?php

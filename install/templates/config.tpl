@@ -211,12 +211,19 @@ $dbPrefix = $_SESSION['install_random_prefix'];
             <td><span class="f9 c6">Language:</span></td>
             <td>
                 <select name="lang">
-                    <option value="en" selected="selected">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="rs">Serbian</option>
-                    <option value="ru">Rusian</option>
-                    <option value="pt_br">Portuguese (Brazil)</option>
-                    <option value="zh_tw">Taiwanese</option>
+                    <?php
+                    $gameLanguageNames = [
+                        'en' => 'English',
+                        'fr' => 'French',
+                        'it' => 'Italian',
+                        'pt_br' => 'Portuguese (Brazil)',
+                        'zh_tw' => 'Chinese (Traditional)'
+                    ];
+                    $selectedGameLang = isset($installLang) && isset($gameLanguageNames[$installLang]) ? $installLang : 'en';
+                    foreach($gameLanguageNames as $langKey => $langName) {
+                        echo '<option value="'.htmlspecialchars($langKey, ENT_QUOTES, 'UTF-8').'"'.($selectedGameLang === $langKey ? ' selected="selected"' : '').'>'.htmlspecialchars($langName, ENT_QUOTES, 'UTF-8').'</option>';
+                    }
+                    ?>
                 </select>
             </td>
         </tr>

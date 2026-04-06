@@ -19,22 +19,22 @@
 
 	switch($_GET['s']) {
 		case 0:
-		echo "<li class=\"c2 f9\">Intro</li><li class=\"c1 f9\">Configuration</li><li class=\"c1 f9\">Database</li><li class= \"c1 f9\">World Data</li><li class=\"c1 f9\">Accounts</li><li class=\"c1 f9\">End</li>";
+		echo "<li class=\"c2 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c1 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 		case 1:
-		echo "<li class=\"c3 f9\">Intro</li><li class=\"c2 f9\">Configuration</li><li class=\"c1 f9\">Database</li><li class= \"c1 f9\">World Data</li><li class=\"c1 f9\">Accounts</li><li class=\"c1 f9\">End</li>";
+		echo "<li class=\"c3 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c2 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c1 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 		case 2:
-		echo "<li class=\"c3 f9\">Intro</li><li class=\"c3 f9\">Configuration</li><li class=\"c2 f9\">Database</li><li class= \"c1 f9\">World Data</li><li class=\"c1 f9\">Accounts</li><li class=\"c1 f9\">End</li>";
+		echo "<li class=\"c3 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c2 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c1 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 		case 3:
-		echo "<li class=\"c3 f9\">Intro</li><li class=\"c3 f9\">Configuration</li><li class=\"c3 f9\">Database</li><li class= \"c2 f9\">World Data</li><li class=\"c1 f9\">Accounts</li><li class=\"c1 f9\">End</li>";
+		echo "<li class=\"c3 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c2 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 		case 4:
-		echo "<li class=\"c3 f9\">Intro</li><li class=\"c3 f9\">Configuration</li><li class=\"c3 f9\">Database</li><li class= \"c3 f9\">World Data</li><li class=\"c2 f9\">Accounts</li><li class=\"c1 f9\">End</li>";
+		echo "<li class=\"c3 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c3 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c2 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c1 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 		case 5:
-		echo "<li class=\"c3 f9\">Intro</li><li class=\"c3 f9\">Configuration</li><li class=\"c3 f9\">Database</li><li class= \"c3 f9\">World Data</li><li class=\"c3 f9\">Accounts</li><li class=\"c2 f9\">End</li>";
+		echo "<li class=\"c3 f9\">".htmlspecialchars(install_t('menu_intro', 'Intro'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_configuration', 'Configuration'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_database', 'Database'), ENT_QUOTES, 'UTF-8')."</li><li class= \"c3 f9\">".htmlspecialchars(install_t('menu_world_data', 'World Data'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c3 f9\">".htmlspecialchars(install_t('menu_accounts', 'Accounts'), ENT_QUOTES, 'UTF-8')."</li><li class=\"c2 f9\">".htmlspecialchars(install_t('menu_end', 'End'), ENT_QUOTES, 'UTF-8')."</li>";
 		break;
 	}
 
