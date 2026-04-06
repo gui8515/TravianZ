@@ -212,7 +212,7 @@ $totalproduction = $village->allcrop;
 
         <!-- Village map / resource fields -->
         <div class="m-village-map">
-            <div class="m-village-map__inner" id="village_map" class="f<?php echo $village->type; ?>">
+            <div class="m-village-map__inner f<?php echo $village->type; ?>" id="village_map">
                 <?php
                 $coorarray = array(1=>"101,33,28","165,32,28","224,46,28","46,63,28","138,74,28","203,94,28","262,86,28","31,117,28","83,110,28","214,142,28","269,146,28","42,171,28","93,164,28","160,184,28","239,199,28","87,217,28","140,231,28","190,232,28");
                 $arrayVillage = $village->resarray;
@@ -228,7 +228,10 @@ $totalproduction = $village->allcrop;
 
                 for ($i = 1; $i <= 18; $i++) {
                     if ($arrayVillage['f'.$i.'t'] != 0) {
-                        echo '<img src="img/x.gif" class="reslevel rf'.$i.' level'.$arrayVillage['f'.$i].(isset($activeFields[$i]) ? '_active' : '').'" alt="Level '.$arrayVillage['f'.$i].(isset($activeFields[$i]) ? ' (upgrade in progress)' : '').'" />';
+                        $isActive   = isset($activeFields[$i]);
+                        $levelClass = 'reslevel rf'.$i.' level'.$arrayVillage['f'.$i].($isActive ? '_active' : '');
+                        $altText    = 'Level '.$arrayVillage['f'.$i].($isActive ? ' (upgrade in progress)' : '');
+                        echo '<img src="img/x.gif" class="'.$levelClass.'" alt="'.$altText.'" />';
                     }
                 }
                 ?>
@@ -310,7 +313,21 @@ $totalproduction = $village->allcrop;
                 foreach ($oasisArray2 as $conqured2) {
                     $oases2 += count($database->getMovement(6, $conqured2['wref'], 0));
                 }
-                $movTotal = (count($database->getMovement(4,$village->wid,1)) + count($database->getMovement(3,$village->wid,1)) + count($database->getMovement(3,$village->wid,0)) + count($database->getMovement(7,$village->wid,1)) + count($database->getMovement(5,$village->wid,0)) + $oases2 - count($database->getMovement(8,$village->wid,1)) - count($database->getMovement(9,$village->wid,0)));
+                $movTotal = (
+                    // Reinforcements arriving / returning
+                    count($database->getMovement(4, $village->wid, 1)) +
+                    count($database->getMovement(3, $village->wid, 1)) +
+                    // Own troops on the move (attacks, raids, reinforcements out)
+                    count($database->getMovement(3, $village->wid, 0)) +
+                    count($database->getMovement(7, $village->wid, 1)) +
+                    // Settlers founding a new village
+                    count($database->getMovement(5, $village->wid, 0)) +
+                    // Attacks on conquered oases
+                    $oases2 -
+                    // Subtract movement types that are counted elsewhere to avoid double-counting
+                    count($database->getMovement(8, $village->wid, 1)) -
+                    count($database->getMovement(9, $village->wid, 0))
+                );
                 if ($movTotal > 0) {
                     echo '</tbody></table>';
                 }
