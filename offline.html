@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2a2a2a">
+    <title>TravianZ - Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #2a2a2a 0%, #404040 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .offline-container {
+            background: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid #404040;
+        }
+
+        .online-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ff6600;
+        }
+
+        .status-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .status-text strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .status-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #404040;
+            border-radius: 50%;
+            line-height: 40px;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .offline-info {
+            background: #2a2a2a;
+            border-left: 4px solid #ff6600;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .offline-info h3 {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #ff6600;
+        }
+
+        .offline-info ul {
+            list-style: none;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #aaaaaa;
+        }
+
+        .offline-info li:before {
+            content: "✓ ";
+            color: #ff6600;
+            margin-right: 8px;
+        }
+
+        .retry-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
+        }
+
+        .retry-button:active {
+            transform: translateY(0);
+        }
+
+        .version-info {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #808080;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="status-icon">📡</div>
+        <h1>Offline Mode</h1>
+        
+        <div class="status-text">
+            <strong>You appear to be offline</strong>
+            Connection to the server could not be established
+        </div>
+
+        <div class="offline-info">
+            <h3>While offline, you can:</h3>
+            <ul>
+                <li>View cached game pages</li>
+                <li>Access previously loaded maps</li>
+                <li>Work on offline tasks</li>
+                <li>Continue planning strategies</li>
+            </ul>
+        </div>
+
+        <div class="offline-info">
+            <h3>To get back online:</h3>
+            <ul>
+                <li>Check your internet connection</li>
+                <li>Verify WiFi or mobile data is enabled</li>
+                <li>Try moving to a location with better signal</li>
+            </ul>
+        </div>
+
+        <button class="retry-button" onclick="location.reload()">
+            → Try Again
+        </button>
+
+        <button class="retry-button" style="background: #505050; margin-left: 10px;" onclick="location.href = '/dorf1.php'">
+            ← Go to Game
+        </button>
+
+        <div class="version-info">
+            TravianZ Mobile v1.0 | Service Worker: Active
+        </div>
+    </div>
+
+    <script>
+        // Monitor connection status
+        window.addEventListener('online', function() {
+            console.log('Connection restored');
+            // Automatically reload if connection comes back
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('Connection lost');
+        });
+
+        // Check connection on page load
+        if (navigator.onLine) {
+            // If online, redirect to the main game
+            console.log('Online detected, redirecting...');
+            location.href = '/dorf1.php';
+        }
+
+        console.log('Offline page loaded. Online status:', navigator.onLine);
+    </script>
+</body>
+</html>

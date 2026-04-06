@@ -1,0 +1,87 @@
+{
+  "name": "TravianZ Mobile",
+  "short_name": "TravianZ",
+  "description": "TravianZ - A browser-based strategy game",
+  "start_url": "/dorf1.php",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2a2a2a",
+  "background_color": "#ffffff",
+  "icon_color": "#ff6600",
+  "lang": "en-US",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["games", "productivity"],
+  "icons": [
+    {
+      "src": "/img/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icons/icon-512-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Village Overview",
+      "short_name": "Overview",
+      "description": "Open village overview",
+      "url": "/dorf1.php",
+      "icons": [
+        {
+          "src": "/img/icons/icon-192.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Village Centre",
+      "short_name": "Centre",
+      "description": "Open village centre",
+      "url": "/dorf2.php",
+      "icons": [
+        {
+          "src": "/img/icons/icon-192.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Map",
+      "short_name": "Map",
+      "description": "View the game map",
+      "url": "/karte.php",
+      "icons": [
+        {
+          "src": "/img/icons/icon-192.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

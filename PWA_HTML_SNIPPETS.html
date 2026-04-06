@@ -1,0 +1,217 @@
+<!-- 
+  ============================================================================
+  TravianZ PWA - HTML Snippets to Add to Existing Pages
+  ============================================================================
+  
+  These are the exact HTML/PHP code snippets to add to your pages.
+  Copy and paste the appropriate sections into your template files.
+-->
+
+<!-- ============================================================================ 
+     SNIPPET 1: ADD TO <head> SECTION
+     ============================================================================ 
+     Location: In <head> section of dorf1.php, dorf2.php, karte.php, etc.
+     
+     Add after the <title> tag:
+-->
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2a2a2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TravianZ">
+<link rel="apple-touch-icon" href="/img/icons/icon-192.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+
+
+<!-- ============================================================================
+     SNIPPET 2: ADD TO </body> SECTION
+     ============================================================================
+     Location: Just before </body> closing tag (or in footer.tpl template)
+     
+     This registers the Service Worker and enables offline support:
+-->
+
+<script>
+  // Progressive Web App - Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('[PWA] Service Worker registered successfully', registration);
+          
+          // Check for updates every 60 seconds
+          setInterval(() => {
+            registration.update();
+          }, 60000);
+          
+          // Notify if update is available
+          if (registration.waiting) {
+            console.log('[PWA] ⚠ Service Worker update available');
+          }
+        })
+        .catch(function(error) {
+          console.error('[PWA] ✗ Service Worker registration failed:', error);
+        });
+    });
+    
+    // Reload page when SW is updated
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      if (refreshing) return;
+      refreshing = true;
+      console.log('[PWA] Reloading page due to Service Worker update...');
+      window.location.reload();
+    });
+  }
+</script>
+
+
+<!-- ============================================================================
+     IMPLEMENTATION EXAMPLE - COMPLETE HEAD SECTION
+     ============================================================================
+     
+     Here's how it should look in your dorf1.php:
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title><?php echo SERVER_NAME . ' - Village overview &raquo; ' . $village->vname; ?></title>
+  <link rel="shortcut icon" href="favicon.ico"/>
+  
+  <!-- ===== PWA ADDITIONS START ===== -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2a2a2a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TravianZ">
+  <link rel="apple-touch-icon" href="/img/icons/icon-192.svg">
+  <!-- ===== PWA ADDITIONS END ===== -->
+  
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="imagetoolbar" content="no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  
+  <script src="mt-full.js?0faab" type="text/javascript"></script>
+  <script src="unx.js?f4b7i" type="text/javascript"></script>
+  <script src="new.js?0faab" type="text/javascript"></script>
+  <!-- rest of existing head content -->
+</head>
+<body>
+  <!-- page content -->
+  
+  <!-- ===== PWA SERVICE WORKER REGISTRATION START ===== -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('[PWA] ✓ Service Worker registered');
+          setInterval(() => { registration.update(); }, 60000);
+        })
+        .catch(function(error) {
+          console.error('[PWA] ✗ Registration failed:', error);
+        });
+    }
+  </script>
+  <!-- ===== PWA SERVICE WORKER REGISTRATION END ===== -->
+</body>
+</html>
+
+
+<!-- ============================================================================
+     IMPLEMENTATION FOR TEMPLATE FILES (RECOMMENDED APPROACH)
+     ============================================================================
+     
+     Best practice: Add PWA code to reusable templates
+     
+     File: Templates/header.tpl or the file that outputs <head>
+     
+     Add in the <head> section (after existing meta tags):
+-->
+
+<?php
+// PWA Manifest and Mobile Features
+// Enables Progressive Web App functionality for all pages
+?>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2a2a2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TravianZ">
+<link rel="apple-touch-icon" href="/img/icons/icon-192.svg">
+
+
+<!-- ============================================================================
+     IMPLEMENTATION FOR FOOTER TEMPLATE
+     ============================================================================
+     
+     File: Templates/footer.tpl or similar
+     
+     Add just before </body>:
+-->
+
+<?php
+// Progressive Web App - Service Worker Registration
+// Enables offline support and caching
+?>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('[PWA] ✓ Service Worker ready');
+        setInterval(() => { registration.update(); }, 60000);
+      })
+      .catch(function(error) {
+        console.error('[PWA] Registration failed:', error);
+      });
+  }
+</script>
+
+
+<!-- ============================================================================
+     QUICK REFERENCE: WHAT EACH PART DOES
+     ============================================================================
+
+1. <link rel="manifest">
+   - Points to manifest.json
+   - Provides app metadata (name, icons, colors)
+   - Enables "Add to Home Screen" on mobile
+
+2. <meta name="theme-color">
+   - Sets the color of browser/app UI
+   - Matches your app's brand color
+   - Value: #2a2a2a (dark gray, Travian style)
+
+3. <meta name="mobile-web-app-capable">
+   - Enables standalone app mode on Android
+   - Hides browser UI when launched from home screen
+
+4. <meta name="apple-mobile-web-app-capable">
+   - Same as above but for iOS Safari
+   - Makes app appear native on iPad/iPhone
+
+5. <meta name="apple-mobile-web-app-title">
+   - Short name shown under home screen icon on iOS
+   - Different from page title, must be short
+
+6. <link rel="apple-touch-icon">
+   - Icon used when bookmarking on iOS
+   - Displayed on home screen and spotlight search
+
+7. <meta name="viewport">
+   - Controls how page displays on mobile
+   - viewport-fit=cover: Uses entire screen (notch support)
+   - user-scalable=yes: Allows pinch-to-zoom
+
+8. navigator.serviceWorker.register('/sw.js')
+   - Registers the service worker script
+   - Enables all offline/caching features
+   - Updates checked every 60 seconds
+
+============================================================================ -->
