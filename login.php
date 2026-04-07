@@ -42,6 +42,8 @@ $_SESSION[ 'csrf' ] = $key;
 	<head>
 	<title><?php echo SERVER_NAME; ?> - Login</title>
 		<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="manifest" href="/manifest.json" />
+	<meta name="theme-color" content="#2a2a2a" />
 	<meta name="content-language" content="en" />
 	<meta http-equiv="cache-control" content="max-age=0" />
 	<meta http-equiv="imagetoolbar" content="no" />
