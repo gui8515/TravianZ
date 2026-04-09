@@ -583,10 +583,10 @@ define('U30', 'Colono');
 define('U99', 'Armadilha');
 
 //NATURE UNITS
-define('U31', 'Rato');
+define('U31', 'Gabiru');
 define('U32', 'Aranha');
 define('U33', 'Cobra');
-define('U34', 'Morcego');
+define('U34', 'Morgueço');
 define('U35', 'Javali Selvagem');
 define('U36', 'Lobo');
 define('U37', 'Urso');
