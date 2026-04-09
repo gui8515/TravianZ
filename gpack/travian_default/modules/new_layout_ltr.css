@@ -102,8 +102,8 @@ body.mod1 div#mtop,
 body.mod2 div#mtop,
 body.mod3 div#mtop {
 	height: 72px;
-	left: 0;
-	margin-left: 0px;
+	left: 0 !important;
+	margin-left: 0px !important;
 	z-index: 2;
 	width: 700px;
 }
