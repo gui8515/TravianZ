@@ -110,3 +110,93 @@ div.plus table#plus_features td.preview img.sort {width:200px; height:38px; back
 div.plus table#plus_features td.preview img.st1 {width:200px; height:90px; background-image:url(p/st1.gif);}
 div.plus table#plus_features td.preview img.xxl_map {width:146px; height:112px; background-image:url(p/xxl_map.gif);}
 input#btn_search {width:97px; background-image: url(b/search.gif);}
+
+/* Header navigation responsive alignment */
+div#header div#mtop {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    box-sizing: border-box;
+}
+
+div#header div#mtop .top-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 560px;
+}
+
+div#header div#mtop .top-nav > a,
+div#header div#mtop .top-nav > div {
+    float: none !important;
+    margin: 0 !important;
+    padding: 0;
+}
+
+div#header div#mtop .top-nav #n5 {
+    display: flex;
+    align-items: center;
+}
+
+div#header div#mtop .top-nav #n5 a {
+    float: none !important;
+}
+
+/* Footer status bar: day/night, server time and plus */
+#footer_status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+#footer_status .status_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#footer_status .day_image,
+#footer_status .night_image {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
+#footer_status .day_image {
+    background-image: url(../../img/l/day.gif);
+}
+
+#footer_status .night_image {
+    background-image: url(../../img/l/night.gif);
+}
+
+#footer_status .plus_status_active {
+    color: #2f9d00;
+    font-weight: bold;
+}
+
+#footer_status .plus_status_inactive {
+    color: #b66a00;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    div#header div#mtop .top-nav {
+        gap: 4px;
+    }
+
+    #footer_status {
+        gap: 8px;
+    }
+}
