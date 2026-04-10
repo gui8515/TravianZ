@@ -328,9 +328,9 @@ define("UN_ACT_TIME", 3628800); // 6 weeks to consider a player inactive
 define("TRACK_USR",true); // track users' being active or not
 define("USER_TIMEOUT",3600); // 1 hour of no activity counts as inactivity
 define("ALLOW_BURST",false);
-define("BASIC_MAX",1);
-define("INNER_MAX",1);
-define("PLUS_MAX",1);
+define("BASIC_MAX",2);
+define("INNER_MAX",2);
+define("PLUS_MAX",2);
 define("ALLOW_ALL_TRIBE",false);
 define("CFM_ADMIN_ACT",true);
 define("SERVER_WEB_ROOT",false);

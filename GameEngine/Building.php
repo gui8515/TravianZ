@@ -180,7 +180,7 @@ class Building {
 			return 10;
 		}
 		else {
-			if($this->allocated <= $this->maxConcurrent) {
+			if($this->allocated < $this->maxConcurrent) {
 				$resRequired = $this->resourceRequired($id, $village->resarray['f'.$id.'t']);
 				$resRequiredPop = $resRequired['pop'];
 				if (empty($resRequiredPop)) {
@@ -204,37 +204,14 @@ class Building {
 					    case 2: return 6;  
 					    case 3: return 7;    
 						case 4:
-						    if($id >= 19) {
-						        if($session->tribe == 1 || ALLOW_ALL_TRIBE) {
-						            if($this->inner == 0) return 8;
-						            else
-						            {
-						                if($session->plus || $tid == 40) {
-						                    if($this->plus == 0) return 9;
-						                    else return 3;
-						                }
-						                else return 2;
-						            }
-						        }
-						        else {
-						            if($this->basic == 0) return 8;
-						            else
-						            {
-						                if($session->plus || $tid == 40) {
-						                    if($this->plus == 0) return 9;
-						                    else return 3;
-						                }
-						                else return 2;
-						            }
-						        }
-						    }
-						    else {
-						        if($this->basic == 1) {
-						            if(($session->plus || $tid == 40) && $this->plus == 0) return 9;
-						            else return 3;
-						        }
-						        else return 8;
-						    }
+						    // Use dynamic concurrency limits (BASIC_MAX/INNER_MAX/PLUS_MAX)
+						    // through $this->maxConcurrent instead of legacy single-slot checks.
+						    if($this->allocated < $this->maxConcurrent) return 8;
+
+						    // Fallback: when normal slots are full, allow plus queue if available.
+						    if(($session->plus || $tid == 40) && $this->plus == 0) return 9;
+
+						    return 2;
 					}
 				}
 			}
