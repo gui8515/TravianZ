@@ -4050,11 +4050,19 @@ public function getBestOasisCropBonus($x, $y) {
      */
     
     function DelVillage($wref){
-        list($wref) = $this->escape_input($wref);
         global $units;
         
         //Check if we've to delete a single village or multiple ones
         if(!is_array($wref)) $wref = [$wref];
+
+        // Keep only valid numeric village ids to avoid malformed IN() queries.
+        $wref = array_values(array_filter(array_map('intval', $wref), function($id) {
+            return $id > 0;
+        }));
+
+        if (empty($wref)) {
+            return false;
+        }
         
         //Create the list of village IDs
         $wrefs = implode(", ", $wref);        

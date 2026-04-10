@@ -2914,10 +2914,12 @@ class Automation {
     
     private function spawnNatars(){
     	global $database;
+
+        $natarsAlreadyCreated = ((int)$database->getUserField(3, 'id', 0) === 3);
     	
     	//Check if Natars account is already created and if the time
     	//is come and we have to create Natars and spawn their artifacts
-    	if($database->areArtifactsSpawned() || strtotime(START_DATE) + (NATARS_SPAWN_TIME * 86400) > time()) return;
+        if($database->areArtifactsSpawned() || $natarsAlreadyCreated || strtotime(START_DATE) + (NATARS_SPAWN_TIME * 86400) > time()) return;
     	
     	//Create the Natars account and his capital
     	$this->artifacts->createNatars();
@@ -4664,6 +4666,8 @@ class Automation {
 }
 $automation = new Automation;
 
-// remove automation lock file
-@unlink( AUTOMATION_LOCK_FILE_NAME );
+// remove automation lock file only if it is configured
+if (defined('AUTOMATION_LOCK_FILE_NAME')) {
+    @unlink(AUTOMATION_LOCK_FILE_NAME);
+}
 ?>

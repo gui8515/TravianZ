@@ -42,6 +42,7 @@ function refresh(tz) {
 						<td>
 							<select name="tzone" onChange="refresh(this.value)">
 								<option value="Africa/Dakar" <?php if (TIMEZONE=="Africa/Dakar") echo "selected";?>>Africa</option>
+								<option value="America/Sao_Paulo" <?php if (TIMEZONE=="America/Sao_Paulo") echo "selected";?>>America (Sao Paulo)</option>
 								<option value="America/New_York" <?php if (TIMEZONE=="America/New_York") echo "selected";?>>America</option>
 								<option value="Antarctica/Casey" <?php if (TIMEZONE=="Antarctica/Casey") echo "selected";?>>Antarctica</option>
 								<option value="Arctic/Longyearbyen" <?php if (TIMEZONE=="Arctic/Longyearbyen") echo "selected";?>>Arctic</option>
@@ -61,6 +62,7 @@ function refresh(tz) {
                         <td>
                             <select name="lang">
                                 <option value="en" <?php if (LANG=="en") echo "selected";?>>English</option>
+								<option value="pt_br" <?php if (LANG=="pt_br") echo "selected";?>>Portuguese (Brazil)</option>
                                 <option value="es" <?php if (LANG=="es") echo "selected";?>>Spain</option>
                                 <option value="rs" <?php if (LANG=="rs") echo "selected";?>>Serbian</option>
                                 <option value="ru" <?php if (LANG=="ru") echo "selected";?>>Russian</option>

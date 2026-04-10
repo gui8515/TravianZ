@@ -186,9 +186,12 @@ class Artifacts
     public function createNatars(){
         global $database;
         
-        //Register the Natars account, the Natars' password is the same as the MH's one
+      // Register Natars only when the account does not already exist.
+      if ((int)$database->getUserField(self::NATARS_UID, 'id', 0) !== self::NATARS_UID) {
+        // The Natars' password is the same as the MH's one.
         $password = $database->getUserField(5, 'password', 0);
         $database->register(TRIBE5, $password, self::NATARS_EMAIL, self::NATARS_TRIBE, null, self::NATARS_UID, self::NATARS_DESC);
+      }
         
         //Convert from coordinates to village IDs
         $possibleWids = $database->getVilWrefs(self::NATARS_CAPITAL_COORDINATES);

@@ -43,6 +43,7 @@ if($_SESSION['access'] < 9) die(ACCESS_DENIED_ADMIN);
 	</tr>
         	<td><?php echo CONF_SERV_LANG ?> <em class="tooltip">?<span class="classic"><?php echo CONF_SERV_LANG_TOOLTIP ?></span></em></td>
         	<td><?php if(LANG == 'en') echo "English";
+	        		  elseif(LANG == 'pt_br') echo "Portuguese (Brazil)";
         			  elseif(LANG == 'es') echo "Spain";
         	 		  elseif(LANG == 'rs') echo "Serbian";
         	 		  elseif(LANG == 'ru') echo "Russian";
