@@ -192,7 +192,7 @@ return [
         'Limit Mailbox:' => 'Limitar caixa de mensagens:',
         'Max mails:' => 'Maximo de mensagens:',
         'Demolish - lvl required:' => 'Demolir - nivel requerido:',
-        'Village Expand:' => 'Expansao da vila:',
+        'Village Expand:' => 'Expansao da aldeia:',
         'Error Reporting:' => 'Relatorio de erros:',
         'T4 is Coming screen:' => 'Tela T4 esta chegando:',
         'Server Start Settings' => 'Configuracoes de inicio do servidor',
